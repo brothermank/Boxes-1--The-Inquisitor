@@ -58,7 +58,7 @@ public class SaveLoadManager {
 		int ya = 0;
 		foreach (List<Block> list in blocks) {
 			foreach(Block block in list){
-				blockA[xa,ya] = blocks[ya][xa];
+				blockA[xa,ya] = blocks[expectedHeight - ya - 1][xa];
 				xa++;
 			}
 			xa = 0;
