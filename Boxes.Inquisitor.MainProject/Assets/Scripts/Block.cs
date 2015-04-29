@@ -21,7 +21,6 @@ public class Block {
 		SpriteRenderer renderer = MonoBehaviour.Instantiate(visualiserPrefab) as SpriteRenderer;
 		renderer.transform.position = new Vector3 ((float)x, (float)y, 0);
 		Sprite sprite = GetSprite (type);
-		Debug.Log (sprite);
 		renderer.sprite = sprite;
 		if (parent == null) {
 			parent = new GameObject().transform;
@@ -49,7 +48,6 @@ public class Block {
 			return null;
 		}
 		Texture2D texture =  Resources.Load (basePath + objectName) as Texture2D;
-		Debug.Log (basePath + objectName);
 		return Sprite.Create (texture, new Rect (0, 0, texture.width, texture.height), new Vector2 (0.5f, 0.5f), texture.height);
 	}
 	

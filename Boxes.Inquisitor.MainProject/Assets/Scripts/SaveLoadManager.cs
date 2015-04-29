@@ -46,8 +46,6 @@ public class SaveLoadManager {
 			return null;
 		}
 		Block[,] blockA = new Block[expectedWidth, expectedHeight];
-		Debug.Log (expectedWidth + "   " + expectedHeight);
-		Debug.Log (blocks.Count + "  " + blocks [0].Count);
 		int xa = 0;
 		int ya = 0;
 		foreach (List<Block> list in blocks) {
@@ -208,6 +206,5 @@ public class SaveLoadManager {
 			lines.Add(nextLine);
 		}
 		System.IO.File.WriteAllLines (Application.dataPath + "/Maps/" + saveName + ".txt", lines.ToArray ());
-		Debug.Log ("saved");
 	}
 }
