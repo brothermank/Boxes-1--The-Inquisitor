@@ -7,7 +7,7 @@ public class Block {
 	private static SpriteRenderer visualiserPrefab = (Resources.Load ("Prefabs/Block Visual") as GameObject).GetComponent<SpriteRenderer> ();
 	public enum BlockType{background, player, collectible, solid, goal};
 	private BlockType type;
-	private Transform parent;
+	private static Transform parent;
 
 	public Block(BlockType type){
 		this.type = type;
@@ -17,17 +17,20 @@ public class Block {
 	/// Displays a block with the blocks type at position x,y. If the block is already displayed, the previous displayer will be destroyed  	
 	/// </summary>
 	public void DisplayObject(int x, int y){
-		MonoBehaviour. Destroy (visualiser);
-		SpriteRenderer renderer = MonoBehaviour.Instantiate(visualiserPrefab) as SpriteRenderer;
-		renderer.transform.position = new Vector3 ((float)x, (float)y, 0);
-		Sprite sprite = GetSprite (type);
-		renderer.sprite = sprite;
-		if (parent == null) {
-			parent = new GameObject().transform;
-			parent.gameObject.name = "Blocks";
+		if(visualiser == null){
+			SpriteRenderer renderer = MonoBehaviour.Instantiate(visualiserPrefab) as SpriteRenderer;
+			renderer.transform.position = new Vector3 ((float)x, (float)y, 0);
+			if (parent == null) {
+				parent = new GameObject().transform;
+				parent.gameObject.name = "Blocks";
+			}
+			if (type == BlockType.player)
+				renderer.name = "PLAYER";
+			renderer.transform.SetParent (parent);
+			visualiser = renderer;
 		}
-		renderer.transform.SetParent (parent);
-		visualiser = renderer;
+		Sprite sprite = GetSprite (type);
+		visualiser.sprite = sprite;
 	}
 
 	private Sprite GetSprite(BlockType type){
