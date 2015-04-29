@@ -8,7 +8,6 @@ public class GameController : MonoBehaviour {
 	private LevelController lc;
 	private SaveLoadManager slm;
 
-	public int frameWidth = 800, frameHeight = 600;
 	private int tilesX, tilesY;
 	public string LevelString = "";
 	public Block[,] LevelData;
@@ -39,7 +38,7 @@ public class GameController : MonoBehaviour {
 		Block[,] LEVEL = lc.GetLevel();
 		for(int x=0; x<tilesX; x++){
 			for(int y=0; y<tilesY; y++){
-				LEVEL[x,y].DisplayObject(frameWidth*x/tilesX,frameHeight*y/tilesY);
+				LEVEL[x,y].DisplayObject(x,y);
 			}
 		}
 	}
