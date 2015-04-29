@@ -13,6 +13,11 @@
 /*.pidb
 /*.booproj
 
+# Custom user files
+Boxes.Inquisitor.MainProject\Boxes.Inquisitor.MainProject-csharp.sln
+Boxes.Inquisitor.MainProject\Boxes.Inquisitor.MainProject.sln
+Boxes.Inquisitor.MainProject\Boxes.Inquisitor.MainProject.userprefs
+
 #Unity3D Generated File On Crash Reports
 sysinfo.txt
 
