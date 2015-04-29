@@ -20,7 +20,8 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Controls ();	
+		Controls ();
+		Debug.Log (controlledCam.orthographicSize);
 	}
 	
 	void Controls(){
@@ -46,5 +47,16 @@ public class CameraController : MonoBehaviour {
 		else if (Input.GetKey (KeyCode.D)) {
 			Camera.main.transform.position = Vector3.Lerp (transform.position, transform.position + Vector3.right, actualMoveSpeed);
 		} 
+	}
+
+	
+	public static void ResizeMainCamTo(int width, int height){
+		if (height * Camera.main.aspect > width) {
+			Camera.main.orthographicSize = (float)height / 2;
+			Debug.Log("Height is: " + height + "     orthographic size is + " + Camera.main.orthographicSize);
+		} else {
+			Camera.main.orthographicSize = (float)width / 2 / Camera.main.aspect;
+			Debug.Log("Height is: " + height + " Aspect is " + Camera.main.aspect + "    orthographic size is + " + Camera.main.orthographicSize);
+		}
 	}
 }

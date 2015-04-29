@@ -35,7 +35,8 @@ public class GameController : MonoBehaviour {
 		tilesY = LevelData.GetLength (1);
 		DrawContents ();
 
-		Camera.main.transform.position = new Vector3 (tilesX/2, tilesY/2, -1.5f);
+		Camera.main.transform.position = new Vector3 ((float)(tilesX)/2f - 0.5f, (float)(tilesY)/2f - 0.5f, -1.5f);
+		CameraController.ResizeMainCamTo (tilesX, tilesY);
 	}
 
 	public void MovePlayer(Direction d){
