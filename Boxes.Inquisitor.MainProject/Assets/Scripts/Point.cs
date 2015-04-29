@@ -13,7 +13,8 @@ using System;
 		public int x,y;
 
 		public Point () {
-			this (0, 0);
+			x = 0;
+			y = 0;
 		}
 
 		public Point (int posX, int posY){
