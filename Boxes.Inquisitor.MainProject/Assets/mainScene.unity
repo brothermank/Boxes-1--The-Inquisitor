@@ -202,7 +202,7 @@ MonoBehaviour:
   frameHeight: 600
   tilesX: 8
   tilesY: 6
-  LevelString: 
+  LevelString: 001.txt
 --- !u!4 &2107639743
 Transform:
   m_ObjectHideFlags: 0

@@ -9,14 +9,16 @@ public class GameController : MonoBehaviour {
 	private SaveLoadManager slm;
 
 	public int frameWidth = 800, frameHeight = 600;
-	public int tilesX = 8, tilesY = 6;
+	private int tilesX, tilesY;
 	public string LevelString = "";
 	public Block[,] LevelData;
 
 	// Use this for initialization
 	void Start () {
-		lc = new LevelController (SaveLoadManager.LoadMap (LevelString));
-
+		LevelData = SaveLoadManager.LoadMap (LevelString);
+		lc = new LevelController (LevelData);
+		tilesX = LevelData.GetLength (0);
+		tilesY = LevelData.GetLength (1);
 	}
 
 
