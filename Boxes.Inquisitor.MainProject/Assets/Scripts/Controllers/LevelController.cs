@@ -99,7 +99,7 @@ public class LevelController {
 		return true;
 	}
 	private void Win(){
-		Application.LoadLevel (0);
+		MainMenuManager.LoadNextLevel ();
 	}
 
 	private void setGoalBlocksBack(){

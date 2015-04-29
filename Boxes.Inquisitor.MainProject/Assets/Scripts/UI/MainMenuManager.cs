@@ -9,7 +9,8 @@ public class MainMenuManager : MonoBehaviour {
 	public GameObject loadLevelPanel;
 	public GameObject loadLevelContentPanel;
 	public ButtonManager buttonPrefab;
-	private DirectoryInfo dInfo;
+	private static DirectoryInfo dInfo;
+	public static int lastLevelIndex = -1;
 
 	// Use this for initialization
 	void Start () {
@@ -22,13 +23,15 @@ public class MainMenuManager : MonoBehaviour {
 		mainMenuPanel.SetActive (false);
 		loadLevelPanel.SetActive (true);
 		FileInfo[] fInfo =  dInfo.GetFiles ();
+		int currentIndex = 0;
 		foreach (FileInfo file in fInfo) {
 			if(GetNameExtension(file.Name) == ".map"){
-				CreateLoadMapButton(file);
+				CreateLoadMapButton(file, currentIndex);
 			}
 			else if(GetNameExtension(file.Name) == ".txt"){
-				CreateLoadMapButton(file);
-			} 
+				CreateLoadMapButton(file, currentIndex);
+			}
+			currentIndex++;
 		}
 	}
 	public void GoToMainMenu(){
@@ -36,14 +39,15 @@ public class MainMenuManager : MonoBehaviour {
 		mainMenuPanel.SetActive (false);
 	}
 
-	private void CreateLoadMapButton(FileInfo file){
+	private void CreateLoadMapButton(FileInfo file, int levelIndex){
 		ButtonManager newButton = Instantiate (buttonPrefab) as ButtonManager;
 		newButton.text.text = file.Name.Substring (0, file.Name.IndexOf( GetNameExtension (file.Name)));
-		newButton.button.onClick.AddListener (() => StartLevel(file.Name));
+		newButton.button.onClick.AddListener (() => StartLevel(file.Name, levelIndex));
 		newButton.transform.SetParent (loadLevelContentPanel.transform);
 	}
 
-	private void StartLevel(string levelFileName){
+	private void StartLevel(string levelFileName, int levelIndex){
+		lastLevelIndex = levelIndex;
 		GameController.GloabalLevelString = levelFileName;
 		Application.LoadLevel (1);
 	}
@@ -60,5 +64,12 @@ public class MainMenuManager : MonoBehaviour {
 			extension += a[j];
 		}
 		return extension;
+	}
+
+	public static void LoadNextLevel(){
+		FileInfo[] fInfo =  dInfo.GetFiles ();
+		lastLevelIndex = (lastLevelIndex + 1) % fInfo.Length;
+		GameController.GloabalLevelString = fInfo[lastLevelIndex].Name;
+		Application.LoadLevel (1);
 	}
 }
