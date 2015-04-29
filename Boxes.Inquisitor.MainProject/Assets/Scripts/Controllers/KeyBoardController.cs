@@ -20,16 +20,16 @@ public class KeyBoardController : MonoBehaviour {
 	/// Handles input from the keyboard
 	/// </summary>
 	void Controls(){
-		if (Input.GetKey (up)) {
+		if (Input.GetKeyDown (up)) {
 			gc.MovePlayer(GameController.Direction.up);
 		}
-		else if (Input.GetKey (down)) {
+		else if (Input.GetKeyDown (down)) {
 			gc.MovePlayer(GameController.Direction.down);
 		}
-		else if (Input.GetKey (left)) {
+		else if (Input.GetKeyDown (left)) {
 			gc.MovePlayer(GameController.Direction.left);
 		}
-		else if (Input.GetKey (right)) {
+		else if (Input.GetKeyDown (right)) {
 			gc.MovePlayer(GameController.Direction.right);
 		}
 	}
