@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour {
 	public string LevelString = "";
 	public Block[,] LevelData;
 
+	public bool HasWon(){
+		return lc.HasWon ();
+
 	// Use this for initialization
 	void Start () {
 		LevelData = SaveLoadManager.LoadMap (LevelString);
@@ -21,13 +24,14 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void MovePlayer(Direction d){
+		Debug.Log (lc);
 		if (d == Direction.left)
 			lc.MoveRelatively (-1, 0);
 		if (d == Direction.right)
 			lc.MoveRelatively (1, 0);
-		if (d == Direction.up)
-			lc.MoveRelatively (0, -1);
 		if (d == Direction.down)
+			lc.MoveRelatively (0, -1);
+		if (d == Direction.up)
 			lc.MoveRelatively (0, 1);
 	}
 
