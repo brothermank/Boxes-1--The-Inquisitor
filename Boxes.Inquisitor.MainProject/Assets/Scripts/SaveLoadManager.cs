@@ -21,7 +21,6 @@ public class SaveLoadManager {
 		file = new System.IO.StreamReader (Application.dataPath + "/Maps/" + fileName);
 		string line;
 		line = sanitizeString(file.ReadLine ());
-		Debug.Log (line);
 		char[] chars = line.ToCharArray ();
 		int y = 0;
 		bool fileCorrupted = false;
@@ -33,7 +32,6 @@ public class SaveLoadManager {
 		int expectedHeight = intsInLine [1];
 		
 		while ((line = sanitizeString(file.ReadLine ())) != null) {
-			Debug.Log (line);
 			blocks.Add(new List<Block>());
 			blocksInLine = getBlocksInString(sanitizeString(line));
 			if(blocksInLine.Count != expectedWidth){
