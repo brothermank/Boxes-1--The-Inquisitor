@@ -21,13 +21,14 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void MovePlayer(Direction d){
+		Debug.Log (lc);
 		if (d == Direction.left)
 			lc.MoveRelatively (-1, 0);
 		if (d == Direction.right)
 			lc.MoveRelatively (1, 0);
-		if (d == Direction.up)
-			lc.MoveRelatively (0, -1);
 		if (d == Direction.down)
+			lc.MoveRelatively (0, -1);
+		if (d == Direction.up)
 			lc.MoveRelatively (0, 1);
 	}
 
