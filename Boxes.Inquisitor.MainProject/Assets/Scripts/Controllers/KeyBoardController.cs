@@ -15,6 +15,10 @@ public class KeyBoardController : MonoBehaviour {
 		Controls ();
 	}
 
+	
+	/// <summary>
+	/// Handles input from the keyboard
+	/// </summary>
 	void Controls(){
 		if (Input.GetKey (up)) {
 			gc.MovePlayer(GameController.Direction.up);

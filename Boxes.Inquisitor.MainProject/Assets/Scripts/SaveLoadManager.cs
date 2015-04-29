@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SaveLoadManager {
+
+	
+	/// <summary>
+	/// Loads a two dimensional block array from a file
+	/// </summary>
+
 	public static Block[,] LoadMap(string fileName){
 		List<List<Block>> blocks = new List<List<Block>> ();
 		System.IO.StreamReader file;
@@ -56,6 +62,9 @@ public class SaveLoadManager {
 		return blockA;
 	}
 	
+	/// <summary>
+	/// Returns a list of all ints in the line seperated by all other characters. If a '-' is infront of a row of numbers, the number is considered negative
+	/// </summary>
 	private static List<int> getIntsInString(string line){
 		List<int> allIntsInString = new List<int>();
 		char[] characters = line.ToCharArray();
@@ -94,7 +103,11 @@ public class SaveLoadManager {
 		}
 		return allIntsInString;
 	}
+
 	
+	/// <summary>
+	/// Returns a list of all the blocks interpretted from the line
+	/// </summary>
 	private static List<Block> getBlocksInString(string line){
 		List<Block> allBlocksInString = new List<Block>();
 		char[] characters = line.ToCharArray();
@@ -171,7 +184,11 @@ public class SaveLoadManager {
 		}
 		return allBlocksInString;
 	}
+
 	
+	/// <summary>
+	/// Saves a two dimensional block array
+	/// </summary>
 	public static void SaveMap(Block[,] blocks, string saveName){
 		List<string> lines = new List<string> ();
 		int width = blocks.GetLength(0);
@@ -190,7 +207,7 @@ public class SaveLoadManager {
 			}
 			lines.Add(nextLine);
 		}
-		System.IO.File.WriteAllLines (@"C:\Users\Manke\Desktop\F\Programming\Unity\RandomGame\Assets\Saves\" + saveName + ".txt", lines.ToArray ());
+		System.IO.File.WriteAllLines (Application.dataPath + "/Maps/" + saveName + ".txt", lines.ToArray ());
 		Debug.Log ("saved");
 	}
 }

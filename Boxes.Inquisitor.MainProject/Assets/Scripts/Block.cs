@@ -24,7 +24,7 @@ public class Block {
 		Debug.Log (sprite);
 		renderer.sprite = sprite;
 		if (parent == null) {
-			parent = new GameObject();
+			parent = new GameObject().transform;
 			parent.gameObject.AddComponent<Transform>();
 			parent.gameObject.name = "Blocks";
 		}
