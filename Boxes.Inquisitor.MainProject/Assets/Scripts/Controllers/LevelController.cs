@@ -37,7 +37,7 @@ public class LevelController {
 		FindGoalPositions ();
 
 		INITIAL_PLAYER_POS = new List<Point> (PLAYER_POS);
-		INITIAL_LEVEL = LEVEL.Clone();
+		INITIAL_LEVEL = (Block[,])LEVEL.Clone();
 	}
 
 	/// <summary>
