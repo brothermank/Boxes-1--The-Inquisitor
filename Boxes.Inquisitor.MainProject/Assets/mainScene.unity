@@ -87,6 +87,50 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &489084476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 489084478}
+  - 114: {fileID: 489084477}
+  m_Layer: 0
+  m_Name: Keyboard Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &489084477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 489084476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9aa1faef3feb14f80bf5afb0d8ea55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up: 273
+  down: 274
+  left: 276
+  right: 275
+  gc: {fileID: 2107639742}
+--- !u!4 &489084478
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 489084476}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 500.58078, y: 200.014084, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
 --- !u!1 &1392015830
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e937a548350c1c4484aab5196995f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoomSpeed: 4
+  baseMoveSpeed: .514999986
 --- !u!1 &2107639741
 GameObject:
   m_ObjectHideFlags: 0
