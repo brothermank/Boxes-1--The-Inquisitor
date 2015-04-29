@@ -23,7 +23,7 @@ public class SaveLoadManager {
 			blocks.Add(new List<Block>());
 			blocksInLine = getBlocksInString(line);
 			if(blocksInLine.Count != expectedWidth){
-				Debug.Log("Amount of blocks in line: " + y + " when trying to load: " + filePath);	
+				Debug.Log("Amount of blocks in line: " + y + " when trying to load: " + fileName);	
 				fileCorrupted = true;
 			}
 			for(int x = 0; x < blocksInLine.Count; x++){
@@ -32,11 +32,11 @@ public class SaveLoadManager {
 			y++;
 		}
 		if(blocks.Count != expectedHeight){
-			Debug.Log("File does not meet the expected amount of lines, when trying to load: " + filePath);
+			Debug.Log("File does not meet the expected amount of lines, when trying to load: " + fileName);
 			fileCorrupted = true;
 		}
 		if (fileCorrupted) {
-			Debug.Log("File was corrupted, and null returned, when trying to load from: " + filePath);
+			Debug.Log("File was corrupted, and null returned, when trying to load from: " + fileName);
 			return null;
 		}
 		Block[,] blockA = new Block[expectedWidth, expectedHeight];
