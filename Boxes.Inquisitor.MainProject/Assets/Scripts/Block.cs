@@ -53,7 +53,7 @@ public class Block {
 			return null;
 		}
 		Texture2D texture =  Resources.Load (basePath + objectName) as Texture2D;
-		return Sprite.Create (texture, new Rect (0, 0, texture.width, texture.height), new Vector2 (0.5f, 0.5f), texture.height);
+		return Sprite.Create (texture, new Rect (0, 0, texture.width, texture.height), new Vector2 (0.5f, 0.5f), Mathf.Max(new int[2]{texture.height, texture.width}));
 	}
 	
 	
