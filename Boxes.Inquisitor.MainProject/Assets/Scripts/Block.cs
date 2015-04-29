@@ -24,7 +24,6 @@ public class Block {
 		renderer.sprite = sprite;
 		if (parent == null) {
 			parent = new GameObject().transform;
-			parent.gameObject.AddComponent<Transform>();
 			parent.gameObject.name = "Blocks";
 		}
 		renderer.transform.SetParent (parent);
