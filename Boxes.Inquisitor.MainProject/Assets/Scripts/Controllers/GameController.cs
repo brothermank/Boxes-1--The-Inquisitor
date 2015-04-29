@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
 
 	public bool HasWon(){
 		return lc.HasWon ();
+	}
 
 	// Use this for initialization
 	void Start () {
