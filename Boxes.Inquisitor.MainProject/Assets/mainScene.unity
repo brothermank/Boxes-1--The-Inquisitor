@@ -99,6 +99,7 @@ GameObject:
   - 92: {fileID: 1392015833}
   - 124: {fileID: 1392015832}
   - 81: {fileID: 1392015831}
+  - 114: {fileID: 1392015836}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -171,6 +172,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1392015836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1392015830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e937a548350c1c4484aab5196995f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2107639741
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,10 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72ea66579782f7499593a3e7df80ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameWidth: 800
-  frameHeight: 600
-  tilesX: 8
-  tilesY: 6
   LevelString: 001.txt
 --- !u!4 &2107639743
 Transform:
