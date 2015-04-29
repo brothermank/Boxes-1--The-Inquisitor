@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class LevelController {
 
-	public int tilesX = 30, tilesY = 20;
+	public int tilesX, tilesY;
 
 	private Block[,] LEVEL;
 	private List<Point> PLAYER_POS;
@@ -24,6 +24,8 @@ public class LevelController {
 
 	public LevelController(Block[,] LevelData){
 		LEVEL = LevelData;
+		tilesX = LevelData.GetLength (0);
+		tilesY = LevelData.GetLength (1);
 	}
 
 	public void AddPlayerAtPosition(int x, int y){
