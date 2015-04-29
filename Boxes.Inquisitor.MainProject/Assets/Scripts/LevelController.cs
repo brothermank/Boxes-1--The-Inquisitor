@@ -5,12 +5,16 @@ public class LevelController : MonoBehaviour {
 
 	public int tilesX = 30, tilesY = 20;
 
-	private Block.BlockType[][] LEVEL;
+	private Block[,] LEVEL;
 	private Point[] PLAYER_POS;
 
 	// Use this for initialization
 	void Start () {
-		LEVEL = new Block.BlockType[tilesX] [tilesY];
+		LEVEL = new Block[tilesX, tilesY];
+		PLAYER_POS = new Point[1];
+
+		SetBlock (10, 10, Block.BlockType.player);
+
 	}
 
 	//Tries to move the player relatively.
@@ -24,12 +28,12 @@ public class LevelController : MonoBehaviour {
 
 		//First of all, clear all player blocks
 		foreach (Point p in PLAYER_POS) {
-			LEVEL[p.x, p.y] = Block.BlockType.background;
+			SetBlock(p.x,p.y,Block.BlockType.background);
 		}
 
 		//Then fill in all the new player blocks
 		foreach (Point p in PLAYER_POS) {
-			LEVEL[p.x+dx, p.y+dy] = Block.BlockType.player;
+			SetBlock(p.x+dx,p.y+dy,Block.BlockType.player);
 
 			//And if its neighbors are collectibles, change them to players
 			HatchUntoPlayer(p.x+dx, p.y+dy);
@@ -38,20 +42,33 @@ public class LevelController : MonoBehaviour {
 
 	private void HatchUntoPlayer(int x, int y){
 		//If the left block is a collectible, make it a player
-		if (x > 0 && LEVEL [x - 1] [y] == Block.BlockType.collectible)
-			LEVEL [x - 1] [y] = Block.BlockType.player;
-		
+		if (x > 0 && IsBlock(x-1,y,Block.BlockType.collectible))
+			SetBlock(x-1,y,Block.BlockType.player);
+
 		//If the right block is a collectible, make it a player
-		if (x < tilesX-1 && LEVEL [x + 1] [y] == Block.BlockType.collectible)
-			LEVEL [x + 1] [y] = Block.BlockType.player;
+		if (x < tilesX-1 && IsBlock(x+1,y,Block.BlockType.collectible))
+			SetBlock(x+1,y,Block.BlockType.player);
 		
 		//If the upper block is a collectible, make it a player
-		if (y > 0 && LEVEL [x] [y - 1] == Block.BlockType.collectible)
-			LEVEL [x] [y - 1] = Block.BlockType.player;
+		if (y > 0 && IsBlock(x,y-1,Block.BlockType.collectible))
+			SetBlock(x,y-1,Block.BlockType.player);
 		
 		//If the down block is a collectible, make it a player
-		if (y < tilesY-1 && LEVEL [x] [y + 1] == Block.BlockType.collectible)
-			LEVEL [x] [y + 1] = Block.BlockType.player;
+		if (y < tilesY-1 && IsBlock(x,y+1,Block.BlockType.collectible))
+			SetBlock(x,y+1,Block.BlockType.player);
+
+	}
+
+	private void SetBlock(int x, int y, Block.BlockType b){
+		LEVEL [x, y].SetType (b);
+	}
+
+	private Block.BlockType GetBlock(int x, int y){
+		return LEVEL [x, y].getType();
+	}
+
+	private bool IsBlock(int x, int y, Block.BlockType b){
+		return GetBlock (x, y) == b;
 	}
 
 	//Checks if a certain [x,y] can be moved unto by the player
@@ -61,7 +78,7 @@ public class LevelController : MonoBehaviour {
 			return false;
 
 		//Return true if it's a player (moving unto itself is allowed) or if it's empty.
-		return (LEVEL [x] [y] == Block.BlockType.background || LEVEL [x] [y] == Block.BlockType.player);
+		return (IsBlock(x,y,Block.BlockType.background) || IsBlock(x,y,Block.BlockType.player));
 	}
 	
 	// Update is called once per frame
