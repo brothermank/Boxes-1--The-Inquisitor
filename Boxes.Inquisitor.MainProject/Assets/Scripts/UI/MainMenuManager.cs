@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 public class MainMenuManager : MonoBehaviour {
@@ -24,13 +25,8 @@ public class MainMenuManager : MonoBehaviour {
 		loadLevelPanel.SetActive (true);
 		FileInfo[] fInfo =  dInfo.GetFiles ();
 		int currentIndex = 0;
-		foreach (FileInfo file in fInfo) {
-			if(GetNameExtension(file.Name) == ".map"){
-				CreateLoadMapButton(file, currentIndex);
-			}
-			else if(GetNameExtension(file.Name) == ".txt"){
-				CreateLoadMapButton(file, currentIndex);
-			}
+		foreach (FileInfo file in ReturnValidFiles (fInfo)) {
+			CreateLoadMapButton(file, currentIndex);
 			currentIndex++;
 		}
 	}
@@ -52,7 +48,7 @@ public class MainMenuManager : MonoBehaviour {
 		Application.LoadLevel (1);
 	}
 
-	private string GetNameExtension(string name){
+	private static string GetNameExtension(string name){
 		string extension = "";
 		char[] a = name.ToCharArray ();
 		int i = 0;
@@ -66,8 +62,22 @@ public class MainMenuManager : MonoBehaviour {
 		return extension;
 	}
 
+	private static FileInfo[] ReturnValidFiles(FileInfo[] allFiles){
+		List<FileInfo> validFiles = new List<FileInfo> ();
+		foreach (FileInfo file in allFiles) {
+			if(GetNameExtension(file.Name) == ".map"){
+				validFiles.Add(file);
+			}
+			else if(GetNameExtension(file.Name) == ".txt"){
+				validFiles.Add(file);
+			}
+		}
+		return validFiles.ToArray();
+
+	}
+
 	public static void LoadNextLevel(){
-		FileInfo[] fInfo =  dInfo.GetFiles ();
+		FileInfo[] fInfo =  ReturnValidFiles( dInfo.GetFiles ());
 		lastLevelIndex = (lastLevelIndex + 1) % fInfo.Length;
 		GameController.GloabalLevelString = fInfo[lastLevelIndex].Name;
 		Application.LoadLevel (1);
