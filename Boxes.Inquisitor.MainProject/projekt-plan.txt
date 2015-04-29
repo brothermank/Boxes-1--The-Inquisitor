@@ -1,0 +1,45 @@
+Bloktyper:
+
+0  | Tom blok
+1  | Spiller-blok
+2  | Blok, der kan kobles på spilleren
+3  | Blok, der IKKE kan kobles på spilleren
+4  | Målblok
+
+--------------------
+
+Multidimensionelt array (m x n) af blokke.
+Skærmstørrelse (w x h)
+
+--------------------
+
+VENSTRE: Flyt position (-1, 0)
+HØJRE:   Flyt position (1,  0)
+OPAD:    Flyt position (0, -1)
+NEDAD:   Flyt position (0,  1)
+
+Flyt position relativivt (dx, dy):
+	For alle spillerblokke (x,y)
+		hvis TYPE(x+dx, y+dy) > 1   ||   				//Kan kun flytte til tomme pladser
+		     x+dx < 0   ||   y+dy < 0   ||   x+dx >= m   ||   y+dy >= n	//Kan ikke flytte ud af banen
+			KAN IKKE FLYTTE (return;)
+	KAN FLYTTE (opdater array)
+
+--------------------
+
+Opdatér spillerblokke (klik på spilleren)
+	For alle spillerblokke (x,y)
+		hvis TYPE(x+1, y)==2
+			sæt TYPE(x+1, y)=1
+		hvis TYPE(x-1, y)==2
+			sæt TYPE(x-1, y)=1
+		hvis TYPE(x, y+1)==2
+			sæt TYPE(x, y+1)=1
+		hvis TYPE(x, y-1)==2
+			sæt TYPE(x, y-1)=1
+--------------------
+
+Tegn bane:
+
+For enhver blok (x,y):
+	Tegn sprite TYPE på pos (x*w/m, y*h/n)
