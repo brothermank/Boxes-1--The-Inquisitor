@@ -20,6 +20,8 @@ Boxes.Inquisitor.MainProject\Boxes.Inquisitor.MainProject.userprefs
 Boxes.Inquisitor.MainProject-csharp.sln
 Boxes.Inquisitor.MainProject.sln
 Boxes.Inquisitor.MainProject.userprefs
+Assembly-CSharp-vs.csproj
+Assembly-CSharp.csproj
 
 #Unity3D Generated File On Crash Reports
 sysinfo.txt
