@@ -89,6 +89,9 @@ public class LevelController {
 		//But if all goals have had partners, and there are as many goal blocks as player blocks, then the player has won.
 		return true;
 	}
+	private void Win(){
+		Application.LoadLevel (0);
+	}
 
 	private void setGoalBlocksBack(){
 		foreach (Point goal in GOAL_POS) {
@@ -142,8 +145,10 @@ public class LevelController {
 		}
 
 		setGoalBlocksBack ();
-
-		Debug.Log ("won? "+HasWon());
+		bool hasWon = HasWon ();
+		Debug.Log ("won? " + hasWon);
+		if (hasWon)
+			Win ();
 	}
 
 	/// <summary>

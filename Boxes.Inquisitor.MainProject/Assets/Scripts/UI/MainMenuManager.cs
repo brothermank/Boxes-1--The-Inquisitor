@@ -7,21 +7,20 @@ public class MainMenuManager : MonoBehaviour {
 
 	public GameObject mainMenuPanel;
 	public GameObject loadLevelPanel;
+	public GameObject loadLevelContentPanel;
 	public ButtonManager buttonPrefab;
 	private DirectoryInfo dInfo;
 
 	// Use this for initialization
 	void Start () {
 		dInfo = new DirectoryInfo (Application.dataPath + "/Maps/");
+		loadLevelPanel.SetActive (false);
+		mainMenuPanel.SetActive (true);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-	void GoToLevelSelect(){
+	public void GoToLevelSelect(){
 		mainMenuPanel.SetActive (false);
+		loadLevelPanel.SetActive (true);
 		FileInfo[] fInfo =  dInfo.GetFiles ();
 		foreach (FileInfo file in fInfo) {
 			if(GetNameExtension(file.Name) == ".map"){
@@ -32,12 +31,21 @@ public class MainMenuManager : MonoBehaviour {
 			} 
 		}
 	}
+	public void GoToMainMenu(){
+		loadLevelPanel.SetActive (false);
+		mainMenuPanel.SetActive (false);
+	}
 
 	private void CreateLoadMapButton(FileInfo file){
 		ButtonManager newButton = Instantiate (buttonPrefab) as ButtonManager;
 		newButton.text.text = file.Name.Substring (0, file.Name.IndexOf( GetNameExtension (file.Name)));
-		newButton.button .onClick.AddListener (() => SaveLoadManager.LoadMap (file.Name));
-		newButton.transform.SetParent (loadLevelPanel.transform);
+		newButton.button.onClick.AddListener (() => StartLevel(file.Name));
+		newButton.transform.SetParent (loadLevelContentPanel.transform);
+	}
+
+	private void StartLevel(string levelFileName){
+		GameController.GloabalLevelString = levelFileName;
+		Application.LoadLevel (1);
 	}
 
 	private string GetNameExtension(string name){

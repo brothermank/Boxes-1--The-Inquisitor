@@ -9,7 +9,7 @@ public class SaveLoadManager {
 	/// Loads a two dimensional block array from a file
 	/// </summary>
 
-	public static Block[,] LoadMap(string fileName){
+	public static Block[,] LoadLevel(string fileName){
 		List<List<Block>> blocks = new List<List<Block>> ();
 		System.IO.StreamReader file;
 		file = new System.IO.StreamReader (Application.dataPath + "/Maps/" + fileName);
@@ -187,7 +187,7 @@ public class SaveLoadManager {
 	/// <summary>
 	/// Saves a two dimensional block array
 	/// </summary>
-	public static void SaveMap(Block[,] blocks, string saveName){
+	public static void SaveLevel(Block[,] blocks, string saveName){
 		List<string> lines = new List<string> ();
 		int width = blocks.GetLength(0);
 		int height = blocks.GetLength(1);

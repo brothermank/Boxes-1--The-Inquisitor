@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72ea66579782f7499593a3e7df80ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelString: 001.txt
+  LevelString: 
 --- !u!4 &2107639743
 Transform:
   m_ObjectHideFlags: 0
