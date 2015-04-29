@@ -7,7 +7,7 @@ public class LevelController {
 	public int tilesX, tilesY;
 
 	private Block[,] LEVEL;
-	private List<Point> PLAYER_POS;
+	private List<Point> PLAYER_POS, GOAL_POS;
 	
 
 	/// <summary>
@@ -27,8 +27,10 @@ public class LevelController {
 		tilesY = LevelData.GetLength (1);
 
 		PLAYER_POS = new List<Point> ();
+		GOAL_POS = new List<Point> ();
 
 		FindPlayerPositions ();
+		FindGoalPositions ();
 	}
 
 	/// <summary>
@@ -41,6 +43,57 @@ public class LevelController {
 					AddPlayerPosition(x,y);
 				}
 			}
+		}
+	}
+
+	/// <summary>
+	/// Iterates through the level-data array and adds all goal blocks to GOAL_POS
+	/// </summary>
+	private void FindGoalPositions(){
+		for (int x=0; x<tilesX; x++) {
+			for (int y=0; y<tilesY; y++) {
+				if(IsBlock(x,y,Block.BlockType.goal)){
+					AddGoalPosition(x,y);
+				}
+			}
+		}
+	}
+
+	public bool HasWon(){
+
+		//Are there equally many goal positions and player positions?
+		//If not, just skip already
+		if (PLAYER_POS.Count != GOAL_POS.Count)
+			return false;
+
+		//Otherwise check if all goal positions match with player positions
+		//For every goal block...
+		foreach (Point goal in GOAL_POS) {
+
+			bool hasPartner = false;
+
+			//Check through all player blocks and find a match
+			foreach (Point player in PLAYER_POS) {
+
+				//If there is a match, just skip this
+				if(player.x==goal.x && player.y==goal.y){
+					hasPartner=true;
+					break;
+				}
+			}
+
+			//If any one goal does not have a partner, then the player has not won yet
+			if(!hasPartner)return false;
+		}
+
+		//But if all goals have had partners, and there are as many goal blocks as player blocks, then the player has won.
+		return true;
+	}
+
+	private void setGoalBlocksBack(){
+		foreach (Point goal in GOAL_POS) {
+			if(IsBlock (goal.x,goal.y,Block.BlockType.background))
+				SetBlock(goal.x,goal.y,Block.BlockType.goal);
 		}
 	}
 
@@ -87,6 +140,10 @@ public class LevelController {
 			//And if its neighbors are collectibles, change them to players
 			HatchUntoPlayer(p.x+dx, p.y+dy);
 		}
+
+		setGoalBlocksBack ();
+
+		Debug.Log ("won? "+HasWon());
 	}
 
 	/// <summary>
@@ -100,6 +157,15 @@ public class LevelController {
 
 	private void AddPlayerPosition(int x, int y){
 		AddPlayerPosition (new Point (x, y));
+	}
+
+	private void AddGoalPosition(Point p){
+		if(!GOAL_POS.Contains(p))
+			GOAL_POS.Add(p);
+	}
+	
+	private void AddGoalPosition(int x, int y){
+		AddGoalPosition (new Point (x, y));
 	}
 
 	private bool HatchUntoPlayer(int x, int y){
@@ -152,7 +218,7 @@ public class LevelController {
 			return false;
 
 		//Return true if it's a player (moving unto itself is allowed) or if it's empty.
-		return (IsBlock(x,y,Block.BlockType.background) || IsBlock(x,y,Block.BlockType.player));
+		return (IsBlock(x,y,Block.BlockType.background) || IsBlock(x,y,Block.BlockType.player) || IsBlock(x,y,Block.BlockType.goal));
 	}
 	
 	// Update is called once per frame

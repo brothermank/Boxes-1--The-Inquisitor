@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour {
 	public string LevelString = "";
 	public Block[,] LevelData;
 
+	public bool HasWon(){
+		return lc.HasWon ();
+
 	// Use this for initialization
 	void Start () {
 		LevelData = SaveLoadManager.LoadMap (LevelString);
