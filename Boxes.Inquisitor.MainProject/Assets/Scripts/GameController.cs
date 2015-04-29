@@ -6,15 +6,20 @@ public class GameController : MonoBehaviour {
 	public enum Direction{left, right, up, down};
 
 	private LevelController lc;
+	private SaveLoadManager slm;
+
 	public int frameWidth = 800, frameHeight = 600;
 	public int tilesX = 8, tilesY = 6;
+	public string LevelString = "";
 	public Block[,] LevelData;
 
 	// Use this for initialization
 	void Start () {
-		lc = new LevelController (LevelData);
+		lc = new LevelController (SaveLoadManager.LoadMap (LevelString));
 
 	}
+
+
 
 	public void MovePlayer(Direction d){
 		if (d == Direction.left)
