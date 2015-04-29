@@ -58,7 +58,6 @@ public class LevelController {
 	/// </summary>
 	public void MoveRelatively(int dx, int dy) {
 		List<Point> q = new List<Point>(PLAYER_POS);
-		PLAYER_POS.Clear ();
 
 		foreach (Point p in q) {
 			//If this block can't move then no blocks can move
@@ -69,7 +68,8 @@ public class LevelController {
 				return;
 			}
 		}
-
+		
+		PLAYER_POS.Clear ();
 		Debug.Log ("Yes, all can move --- "+q.Count);
 
 		//If all blocks can move, then move all player blocks
@@ -111,35 +111,38 @@ public class LevelController {
 	}
 
 	private bool HatchUntoPlayer(int x, int y){
+
+		bool b = false;
+
 		//If the left block is a collectible, make it a player
 		if (x > 0 && IsBlock (x - 1, y, Block.BlockType.collectible)) {
 			AddPlayerAtPosition(x-1,y);
 			Debug.Log ("\tYes, left block can hatch unto player");
-			return true;
+			b=true;
 		}
 
 		//If the right block is a collectible, make it a player
 		if (x < tilesX - 1 && IsBlock (x + 1, y, Block.BlockType.collectible)) {
 			AddPlayerAtPosition(x+1,y);
 			Debug.Log ("\tYes, right block can hatch unto player");
-			return true;
+			b=true;
 		}
 		
 		//If the down block is a collectible, make it a player
 		if (y > 0 && IsBlock (x, y - 1, Block.BlockType.collectible)) {
 			AddPlayerAtPosition(x,y-1);
 			Debug.Log ("\tYes, down block can hatch unto player");
-			return true;
+			b=true;
 		}
 		
 		//If the up block is a collectible, make it a player
 		if (y < tilesY - 1 && IsBlock (x, y + 1, Block.BlockType.collectible)) {
 			AddPlayerAtPosition(x,y+1);
 			Debug.Log ("\tYes, up block can hatch unto player");
-			return true;
+			b=true;
 		}
 		
-		return false;
+		return b;
 	}
 
 	private void SetBlock(int x, int y, Block.BlockType b){
