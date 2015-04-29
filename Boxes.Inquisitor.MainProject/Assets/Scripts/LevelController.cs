@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class LevelController : MonoBehaviour {
+public class LevelController {
 
 	public int tilesX = 30, tilesY = 20;
 
@@ -22,13 +22,17 @@ public class LevelController : MonoBehaviour {
 		return LEVEL;
 	}
 
+	public LevelController(Block[,] LevelData){
+		LEVEL = LevelData;
+	}
+
 	public void AddPlayerAtPosition(int x, int y){
 		SetBlock (x, y, Block.BlockType.player);
 		AddPlayerPosition(x,y);
 	}
 
 	//Tries to move the player relatively.
-	void MoveRelatively(int dx, int dy) {
+	public void MoveRelatively(int dx, int dy) {
 		List<Point> q = PLAYER_POS;
 		PLAYER_POS.Clear ();
 
