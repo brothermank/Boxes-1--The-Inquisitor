@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SaveLoadManager {
-	public static Block[,] LoadMap(string filePath){
+	public static Block[,] LoadMap(string fileName){
 		List<List<Block>> blocks = new List<List<Block>> ();
 		System.IO.StreamReader file;
-		file = new System.IO.StreamReader (filePath);
+		file = new System.IO.StreamReader (Application.dataPath + "/Maps/" + fileName);
 		string line;
 		line = file.ReadLine ();
 		char[] chars = line.ToCharArray ();
@@ -23,7 +23,7 @@ public class SaveLoadManager {
 			blocks.Add(new List<Block>());
 			blocksInLine = getBlocksInString(line);
 			if(blocksInLine.Count != expectedWidth){
-				Debug.Log("Amount of blocks in line: " + y + " when trying to load: " + filePath);
+				Debug.Log("Amount of blocks in line: " + y + " when trying to load: " + filePath);	
 				fileCorrupted = true;
 			}
 			for(int x = 0; x < blocksInLine.Count; x++){
