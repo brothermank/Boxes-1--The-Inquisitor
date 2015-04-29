@@ -6,9 +6,13 @@ public class LevelController {
 
 	public int tilesX, tilesY;
 
-	private Block[,] LEVEL;
-	private List<Point> PLAYER_POS, GOAL_POS;
-	
+	private Block[,] LEVEL, INITIAL_LEVEL;
+	private List<Point> PLAYER_POS, GOAL_POS, INITIAL_PLAYER_POS;
+
+	public void restartMap(){
+		LEVEL = INITIAL_LEVEL;
+		PLAYER_POS = INITIAL_PLAYER_POS;
+	}
 
 	/// <summary>
 	/// Gets the 2-dimensional Block-array associated with this LevelController
@@ -31,6 +35,9 @@ public class LevelController {
 
 		FindPlayerPositions ();
 		FindGoalPositions ();
+
+		INITIAL_PLAYER_POS = new List<Point> (PLAYER_POS);
+		INITIAL_LEVEL = LEVEL.Clone();
 	}
 
 	/// <summary>

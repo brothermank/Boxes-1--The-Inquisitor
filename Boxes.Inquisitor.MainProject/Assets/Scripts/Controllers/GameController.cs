@@ -16,6 +16,10 @@ public class GameController : MonoBehaviour {
 		return lc.HasWon ();
 	}
 
+	public void restartMap(){
+		lc.restartMap ();
+	}
+
 	// Use this for initialization
 	void Start () {
 		Debug.Log (GloabalLevelString);
