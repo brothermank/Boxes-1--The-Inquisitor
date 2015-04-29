@@ -9,12 +9,16 @@ public class SaveLoadManager {
 	/// Loads a two dimensional block array from a file
 	/// </summary>
 
+	private static string sanitizeString(string s){
+		return s.Replace("X","1").Replace("O","2").Replace("M","2").Replace("S","2").Replace("G","3");
+	}
+
 	public static Block[,] LoadLevel(string fileName){
 		List<List<Block>> blocks = new List<List<Block>> ();
 		System.IO.StreamReader file;
 		file = new System.IO.StreamReader (Application.dataPath + "/Maps/" + fileName);
 		string line;
-		line = file.ReadLine ();
+		line = sanitizeString(file.ReadLine ());
 		char[] chars = line.ToCharArray ();
 		int y = 0;
 		bool fileCorrupted = false;
