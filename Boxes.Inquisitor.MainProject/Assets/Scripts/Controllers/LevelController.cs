@@ -159,9 +159,8 @@ public class LevelController {
 		}
 
 		setGoalBlocksBack ();
-		bool hasWon = HasWon ();
-		Debug.Log ("won? " + hasWon);
-		if (hasWon)
+
+		if (HasWon ())
 			Win ();
 	}
 
