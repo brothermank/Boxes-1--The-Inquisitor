@@ -15,13 +15,14 @@ public class Block {
 	/// <summary>
 	/// Displays a block with the blocks type at position x,y. If the block is already displayed, the previous displayer will be destroyed  	
 	/// </summary>
-	public void DisplayObject(int x, int y){
+	public void DisplayObject(int x, int y, Transform parent){
 		MonoBehaviour. Destroy (visualiser);
 		SpriteRenderer renderer = MonoBehaviour.Instantiate(visualiserPrefab) as SpriteRenderer;
 		renderer.transform.position = new Vector3 ((float)x, (float)y, 0);
 		Sprite sprite = GetSprite (type);
 		Debug.Log (sprite);
 		renderer.sprite = sprite;
+		renderer.transform.SetParent (parent);
 		visualiser = renderer;
 	}
 
