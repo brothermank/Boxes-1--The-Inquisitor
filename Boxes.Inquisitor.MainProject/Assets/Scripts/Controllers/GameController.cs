@@ -6,7 +6,6 @@ public class GameController : MonoBehaviour {
 	public enum Direction{left, right, up, down};
 
 	private LevelController lc;
-	private SaveLoadManager slm;
 
 	private int tilesX, tilesY;
 	public string LevelString = "";
@@ -20,8 +19,6 @@ public class GameController : MonoBehaviour {
 		tilesY = LevelData.GetLength (1);
 		DrawContents ();
 	}
-
-
 
 	public void MovePlayer(Direction d){
 		if (d == Direction.left)
