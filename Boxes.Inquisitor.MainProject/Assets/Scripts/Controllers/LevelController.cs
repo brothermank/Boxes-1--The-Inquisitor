@@ -14,6 +14,8 @@ public class LevelController {
 		for (int x=0; x<tilesX; x++) {
 			for (int y=0; y<tilesY; y++) {
 				LEVEL[x,y].SetType(INITIAL_LEVEL[x,y].getType());
+				LEVEL[x,y].RemoveObjectDisplay();
+				LEVEL[x,y].DisplayObject(x,y);
 			}
 		}
 		PLAYER_POS = INITIAL_PLAYER_POS;
