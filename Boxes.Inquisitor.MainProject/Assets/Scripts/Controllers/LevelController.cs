@@ -39,7 +39,6 @@ public class LevelController {
 			for (int y=0; y<tilesY; y++) {
 				if(IsBlock(x,y,Block.BlockType.player)){
 					AddPlayerPosition(x,y);
-					Debug.Log ("Player found at x="+x+", y="+y+", |pp|="+PLAYER_POS.Count);
 				}
 			}
 		}
@@ -61,38 +60,31 @@ public class LevelController {
 
 		foreach (Point p in q) {
 			//If this block can't move then no blocks can move
-			
-			Debug.Log ("Checking if ("+(p.x+dx)+", "+(p.y+dy)+") can move...");
+
 			if(!CanMove(p.x+dx,p.y+dy)){
-				Debug.Log ("\tNo dice, it can't move");
 				return;
 			}
 		}
 		
 		PLAYER_POS.Clear ();
-		Debug.Log ("Yes, all can move --- "+q.Count);
 
 		//If all blocks can move, then move all player blocks
 
 		//First of all, clear all player blocks
 		foreach (Point p in q) {
-			Debug.Log ("Clearing block at ("+p.x+", "+p.y+")");
 			SetBlock(p.x,p.y,Block.BlockType.background);
 		}
 
 
 		//Then fill in all the new player blocks
 		foreach (Point p in q) {
-			Debug.Log ("Setting block at ("+(p.x+dx)+", "+(p.y+dy)+")");
 			SetBlock(p.x+dx,p.y+dy,Block.BlockType.player);
 
 			//If it doesn't contains this point, add it to the player positions
 			Point x = new Point(p.x+dx,p.y+dy);
-			Debug.Log ("\tAdding position to PLAYER_POS array");
 			AddPlayerPosition(x);
 
 			//And if its neighbors are collectibles, change them to players
-			Debug.Log ("\tChecking neighbors...");
 			HatchUntoPlayer(p.x+dx, p.y+dy);
 		}
 	}
@@ -117,28 +109,24 @@ public class LevelController {
 		//If the left block is a collectible, make it a player
 		if (x > 0 && IsBlock (x - 1, y, Block.BlockType.collectible)) {
 			AddPlayerAtPosition(x-1,y);
-			Debug.Log ("\tYes, left block can hatch unto player");
 			b=true;
 		}
 
 		//If the right block is a collectible, make it a player
 		if (x < tilesX - 1 && IsBlock (x + 1, y, Block.BlockType.collectible)) {
 			AddPlayerAtPosition(x+1,y);
-			Debug.Log ("\tYes, right block can hatch unto player");
 			b=true;
 		}
 		
 		//If the down block is a collectible, make it a player
 		if (y > 0 && IsBlock (x, y - 1, Block.BlockType.collectible)) {
 			AddPlayerAtPosition(x,y-1);
-			Debug.Log ("\tYes, down block can hatch unto player");
 			b=true;
 		}
 		
 		//If the up block is a collectible, make it a player
 		if (y < tilesY - 1 && IsBlock (x, y + 1, Block.BlockType.collectible)) {
 			AddPlayerAtPosition(x,y+1);
-			Debug.Log ("\tYes, up block can hatch unto player");
 			b=true;
 		}
 		
