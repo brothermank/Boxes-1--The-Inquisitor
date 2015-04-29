@@ -1,25 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelController : MonoBehaviour {
 
 	public int tilesX = 30, tilesY = 20;
 
 	private Block[,] LEVEL;
-	private Point[] PLAYER_POS;
+	private List<Point> PLAYER_POS;
 
 	// Use this for initialization
 	void Start () {
 		LEVEL = new Block[tilesX, tilesY];
-		PLAYER_POS = new Point[1];
-
+		PLAYER_POS = new List<Point> ();
+		AddPlayerAtPosition (tilesX / 2, tilesY / 2);
 		SetBlock (10, 10, Block.BlockType.player);
 
 	}
 
+	public Block[,] GetLevel(){
+		return LEVEL;
+	}
+
+	public void AddPlayerAtPosition(int x, int y){
+		SetBlock (x, y, Block.BlockType.player);
+		AddPlayerPosition(x,y);
+	}
+
 	//Tries to move the player relatively.
 	void MoveRelatively(int dx, int dy) {
-		foreach (Point p in PLAYER_POS) {
+		List<Point> q = PLAYER_POS;
+		PLAYER_POS.Clear ();
+
+		foreach (Point p in q) {
 			//If this block can't move then no blocks can move
 			if(!CanMove(p.x+dx,p.y+dy))return;
 		}
@@ -27,35 +40,55 @@ public class LevelController : MonoBehaviour {
 		//If all blocks can move, then move all player blocks
 
 		//First of all, clear all player blocks
-		foreach (Point p in PLAYER_POS) {
+		foreach (Point p in q) {
 			SetBlock(p.x,p.y,Block.BlockType.background);
 		}
 
 		//Then fill in all the new player blocks
-		foreach (Point p in PLAYER_POS) {
+		foreach (Point p in q) {
 			SetBlock(p.x+dx,p.y+dy,Block.BlockType.player);
+
+			//If it doesn't contains this point, add it to the player positions
+			Point x = new Point(p.x+dx,p.y+dy);
+			AddPlayerPosition(x);
 
 			//And if its neighbors are collectibles, change them to players
 			HatchUntoPlayer(p.x+dx, p.y+dy);
 		}
 	}
+	private void AddPlayerPosition(Point p){
+		if(!PLAYER_POS.Contains(p))
+			PLAYER_POS.Add(p);
+	}
+
+	private void AddPlayerPosition(int x, int y){
+		AddPlayerPosition (new Point (x, y));
+	}
 
 	private void HatchUntoPlayer(int x, int y){
 		//If the left block is a collectible, make it a player
-		if (x > 0 && IsBlock(x-1,y,Block.BlockType.collectible))
-			SetBlock(x-1,y,Block.BlockType.player);
+		if (x > 0 && IsBlock (x - 1, y, Block.BlockType.collectible)) {
+			SetBlock (x - 1, y, Block.BlockType.player);
+			AddPlayerPosition(x-1,y);
+		}
 
 		//If the right block is a collectible, make it a player
-		if (x < tilesX-1 && IsBlock(x+1,y,Block.BlockType.collectible))
-			SetBlock(x+1,y,Block.BlockType.player);
+		if (x < tilesX - 1 && IsBlock (x + 1, y, Block.BlockType.collectible)) {
+			SetBlock (x + 1, y, Block.BlockType.player);
+			AddPlayerPosition(x+1,y);
+		}
 		
 		//If the upper block is a collectible, make it a player
-		if (y > 0 && IsBlock(x,y-1,Block.BlockType.collectible))
-			SetBlock(x,y-1,Block.BlockType.player);
+		if (y > 0 && IsBlock (x, y - 1, Block.BlockType.collectible)) {
+			SetBlock (x, y - 1, Block.BlockType.player);
+			AddPlayerPosition(x,y-1);
+		}
 		
 		//If the down block is a collectible, make it a player
-		if (y < tilesY-1 && IsBlock(x,y+1,Block.BlockType.collectible))
-			SetBlock(x,y+1,Block.BlockType.player);
+		if (y < tilesY - 1 && IsBlock (x, y + 1, Block.BlockType.collectible)) {
+			SetBlock (x, y + 1, Block.BlockType.player);
+			AddPlayerPosition(x,y+1);
+		}
 
 	}
 
