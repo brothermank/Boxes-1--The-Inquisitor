@@ -34,6 +34,7 @@ public class KeyBoardController : MonoBehaviour {
 			gc.MovePlayer(GameController.Direction.right);
 		}
 		if (Input.GetKeyDown (r)) {
+			Debug.Log("restart");
 			gc.restartMap();
 		}
 	}

@@ -11,14 +11,7 @@ public class LevelController {
 	private List<Point> PLAYER_POS, GOAL_POS, INITIAL_PLAYER_POS;
 
 	public void restartMap(){
-		for (int x=0; x<tilesX; x++) {
-			for (int y=0; y<tilesY; y++) {
-				LEVEL[x,y].SetType(INITIAL_LEVEL[x,y].getType());
-				LEVEL[x,y].RemoveObjectDisplay();
-				LEVEL[x,y].DisplayObject(x,y);
-			}
-		}
-		PLAYER_POS = INITIAL_PLAYER_POS;
+		Application.LoadLevel (1);
 	}
 
 	/// <summary>
