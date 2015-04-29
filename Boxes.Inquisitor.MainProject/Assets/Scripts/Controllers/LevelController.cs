@@ -112,8 +112,12 @@ public class LevelController {
 	/// <summary>
 	/// Adds a new Player object at a specified [x,y] position in the array.	
 	/// </summary>
-	public void AddPlayerAtPosition(int x, int y){
-		SetBlock (x, y, Block.BlockType.player);
+	public void AddPlayerAtPosition(int x, int y, bool appendage){
+		if (appendage) {
+			SetBlock (x, y, Block.BlockType.appendage);
+		} else {
+			SetBlock (x, y, Block.BlockType.player);
+		}
 		AddPlayerPosition(x,y);
 	}
 
@@ -135,15 +139,28 @@ public class LevelController {
 
 		//If all blocks can move, then move all player blocks
 
+		//Define playerPoint
+		Point playerPoint = null;
+
 		//First of all, clear all player blocks
 		foreach (Point p in q) {
+			//If it's the player block, treat it as a special case and remember it for later
+			if(IsBlock (p.x,p.y,Block.BlockType.player))
+				playerPoint = p;
+
 			SetBlock(p.x,p.y,Block.BlockType.background);
 		}
 
 
 		//Then fill in all the new player blocks
 		foreach (Point p in q) {
-			SetBlock(p.x+dx,p.y+dy,Block.BlockType.player);
+
+			//If it's the playerPoint, paint its next point as the player
+			if(p==playerPoint){
+				SetBlock(p.x+dx,p.y+dy,Block.BlockType.player);
+			} else { //And otherwise it's an appendage
+				SetBlock(p.x+dx,p.y+dy,Block.BlockType.appendage);
+			}
 
 			//If it doesn't contains this point, add it to the player positions
 			Point x = new Point(p.x+dx,p.y+dy);
@@ -187,25 +204,25 @@ public class LevelController {
 
 		//If the left block is a collectible, make it a player
 		if (x > 0 && IsBlock (x - 1, y, Block.BlockType.collectible)) {
-			AddPlayerAtPosition(x-1,y);
+			AddPlayerAtPosition(x-1,y,true);
 			b=true;
 		}
 
 		//If the right block is a collectible, make it a player
 		if (x < tilesX - 1 && IsBlock (x + 1, y, Block.BlockType.collectible)) {
-			AddPlayerAtPosition(x+1,y);
+			AddPlayerAtPosition(x+1,y,true);
 			b=true;
 		}
 		
 		//If the down block is a collectible, make it a player
 		if (y > 0 && IsBlock (x, y - 1, Block.BlockType.collectible)) {
-			AddPlayerAtPosition(x,y-1);
+			AddPlayerAtPosition(x,y-1,true);
 			b=true;
 		}
 		
 		//If the up block is a collectible, make it a player
 		if (y < tilesY - 1 && IsBlock (x, y + 1, Block.BlockType.collectible)) {
-			AddPlayerAtPosition(x,y+1);
+			AddPlayerAtPosition(x,y+1,true);
 			b=true;
 		}
 		

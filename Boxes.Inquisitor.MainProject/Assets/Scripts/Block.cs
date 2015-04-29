@@ -5,7 +5,7 @@ public class Block {
 
 	private SpriteRenderer visualiser;
 	private static SpriteRenderer visualiserPrefab = (Resources.Load ("Prefabs/Block Visual") as GameObject).GetComponent<SpriteRenderer> ();
-	public enum BlockType{background, player, collectible, solid, goal};
+	public enum BlockType{background, player, collectible, solid, goal, appendage};
 	private BlockType type;
 	private static Transform parent;
 
@@ -51,6 +51,9 @@ public class Block {
 			break;
 		case BlockType.goal:
 			objectName = "Goal";
+			break;
+		case BlockType.appendage:
+			objectName = "Appendage";
 			break;
 		default:
 			return null;
