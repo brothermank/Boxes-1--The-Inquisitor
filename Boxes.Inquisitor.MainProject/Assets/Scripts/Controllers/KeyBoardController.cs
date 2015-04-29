@@ -7,6 +7,7 @@ public class KeyBoardController : MonoBehaviour {
 	public KeyCode down = KeyCode.DownArrow;
 	public KeyCode left = KeyCode.LeftArrow;
 	public KeyCode right = KeyCode.RightArrow;
+	public KeyCode r = KeyCode.R;
 	public GameController gc;
 
 
@@ -31,6 +32,9 @@ public class KeyBoardController : MonoBehaviour {
 		}
 		 if (Input.GetKeyDown (right)) {
 			gc.MovePlayer(GameController.Direction.right);
+		}
+		if (Input.GetKeyDown (r)) {
+			gc.restartMap();
 		}
 	}
 }

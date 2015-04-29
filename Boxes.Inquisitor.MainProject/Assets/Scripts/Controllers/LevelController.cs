@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 using System.Collections.Generic;
 
 public class LevelController {
@@ -10,7 +11,11 @@ public class LevelController {
 	private List<Point> PLAYER_POS, GOAL_POS, INITIAL_PLAYER_POS;
 
 	public void restartMap(){
-		LEVEL = INITIAL_LEVEL;
+		for (int x=0; x<tilesX; x++) {
+			for (int y=0; y<tilesY; y++) {
+				LEVEL[x,y].SetType(INITIAL_LEVEL[x,y].getType());
+			}
+		}
 		PLAYER_POS = INITIAL_PLAYER_POS;
 	}
 
@@ -33,11 +38,13 @@ public class LevelController {
 		PLAYER_POS = new List<Point> ();
 		GOAL_POS = new List<Point> ();
 
+		INITIAL_LEVEL = new Block[tilesX,tilesY];
+
 		FindPlayerPositions ();
 		FindGoalPositions ();
 
 		INITIAL_PLAYER_POS = new List<Point> (PLAYER_POS);
-		INITIAL_LEVEL = (Block[,])LEVEL.Clone();
+		Array.Copy (LEVEL, INITIAL_LEVEL, tilesX*tilesY);
 	}
 
 	/// <summary>

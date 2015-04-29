@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour {
 
 	public void restartMap(){
 		lc.restartMap ();
+		DrawContents ();
 	}
 
 	// Use this for initialization
