@@ -28,10 +28,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void DrawContents(){
-		Block[,] LEVEL = lc.tilesX;
+		Block[,] LEVEL = lc.GetLevel();
 		for(int x=0; x<tilesX; x++){
 			for(int y=0; y<tilesY; y++){
-				LEVEL[x,y].DisplayObject(frameWidth*x/tilesX);
+				LEVEL[x,y].DisplayObject(frameWidth*x/tilesX,frameHeight*y/tilesY);
 			}
 		}
 	}
