@@ -10,7 +10,7 @@ public class SaveLoadManager {
 	/// </summary>
 
 	private static string sanitizeString(string s){
-		return s.Replace("X","1").Replace("O","2").Replace("M","2").Replace("S","2").Replace("G","3");
+		return s.Replace("-","0").Replace("X","1").Replace("O","2").Replace("M","3").Replace("S","3").Replace("G","4");
 	}
 
 	public static Block[,] LoadLevel(string fileName){
