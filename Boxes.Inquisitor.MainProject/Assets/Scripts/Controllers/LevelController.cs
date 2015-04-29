@@ -140,13 +140,13 @@ public class LevelController {
 		//If all blocks can move, then move all player blocks
 
 		//Define playerPoint
-		Point playerPoint = null;
+		List<Point> playerPoint = new List<Point>();
 
 		//First of all, clear all player blocks
 		foreach (Point p in q) {
 			//If it's the player block, treat it as a special case and remember it for later
 			if(IsBlock (p.x,p.y,Block.BlockType.player))
-				playerPoint = p;
+				playerPoint.Add (p);
 
 			SetBlock(p.x,p.y,Block.BlockType.background);
 		}
@@ -156,7 +156,7 @@ public class LevelController {
 		foreach (Point p in q) {
 
 			//If it's the playerPoint, paint its next point as the player
-			if(p==playerPoint){
+			if(playerPoint.Contains(p)){
 				SetBlock(p.x+dx,p.y+dy,Block.BlockType.player);
 			} else { //And otherwise it's an appendage
 				SetBlock(p.x+dx,p.y+dy,Block.BlockType.appendage);
