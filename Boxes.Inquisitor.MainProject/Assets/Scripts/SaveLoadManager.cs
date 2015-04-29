@@ -9,12 +9,19 @@ public class SaveLoadManager {
 	/// Loads a two dimensional block array from a file
 	/// </summary>
 
+	private static string sanitizeString(string s){
+		if (s == null)
+			return null;
+		return s.Replace(".","0").Replace("X","1").Replace("O","2").Replace("M","3").Replace("S","3").Replace("G","4");
+	}
+
 	public static Block[,] LoadLevel(string fileName){
 		List<List<Block>> blocks = new List<List<Block>> ();
 		System.IO.StreamReader file;
 		file = new System.IO.StreamReader (Application.dataPath + "/Maps/" + fileName);
 		string line;
-		line = file.ReadLine ();
+		line = sanitizeString(file.ReadLine ());
+		Debug.Log (line);
 		char[] chars = line.ToCharArray ();
 		int y = 0;
 		bool fileCorrupted = false;
@@ -25,9 +32,10 @@ public class SaveLoadManager {
 		int expectedWidth = intsInLine [0];
 		int expectedHeight = intsInLine [1];
 		
-		while ((line = file.ReadLine ()) != null) {
+		while ((line = sanitizeString(file.ReadLine ())) != null) {
+			Debug.Log (line);
 			blocks.Add(new List<Block>());
-			blocksInLine = getBlocksInString(line);
+			blocksInLine = getBlocksInString(sanitizeString(line));
 			if(blocksInLine.Count != expectedWidth){
 				Debug.Log("Amount of blocks in line: " + y + " when trying to load: " + fileName);	
 				fileCorrupted = true;
