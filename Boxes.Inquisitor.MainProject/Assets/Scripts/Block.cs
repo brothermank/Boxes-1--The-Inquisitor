@@ -7,6 +7,7 @@ public class Block {
 	private static SpriteRenderer visualiserPrefab = (Resources.Load ("Prefabs/Block Visual") as GameObject).GetComponent<SpriteRenderer> ();
 	public enum BlockType{background, player, collectible};
 	private BlockType type;
+	private Transform parent;
 
 	public Block(BlockType type){
 		this.type = type;
@@ -22,6 +23,12 @@ public class Block {
 		Sprite sprite = GetSprite (type);
 		Debug.Log (sprite);
 		renderer.sprite = sprite;
+		if (parent == null) {
+			parent = new GameObject();
+			parent.gameObject.AddComponent<Transform>();
+			parent.gameObject.name = "Blocks";
+		}
+		renderer.transform.SetParent (parent);
 		visualiser = renderer;
 	}
 
