@@ -248,7 +248,7 @@ public class LevelController {
 			return false;
 
 		//Return true if it's a player (moving unto itself is allowed) or if it's empty.
-		return (IsBlock(x,y,Block.BlockType.background) || IsBlock(x,y,Block.BlockType.player) || IsBlock(x,y,Block.BlockType.goal));
+		return (IsBlock(x,y,Block.BlockType.background) || IsBlock(x,y,Block.BlockType.appendage) || IsBlock(x,y,Block.BlockType.player) || IsBlock(x,y,Block.BlockType.goal));
 	}
 	
 	// Update is called once per frame
