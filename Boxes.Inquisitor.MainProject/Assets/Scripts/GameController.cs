@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
 		lc = new LevelController (LevelData);
 		tilesX = LevelData.GetLength (0);
 		tilesY = LevelData.GetLength (1);
+		DrawContents ();
 	}
 
 
