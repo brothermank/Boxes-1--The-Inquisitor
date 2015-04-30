@@ -40,7 +40,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void MovePlayer(Direction d){
-		Debug.Log (lc);
 		if (d == Direction.left)
 			lc.MoveRelatively (-1, 0);
 		if (d == Direction.right)
