@@ -157,6 +157,8 @@ public class LevelController {
 		//Then fill in all the new player blocks
 		foreach (Point p in q) {
 
+			if(IsBlock(p.x+dx,p.y+dy,Block.BlockType.hazard))continue;
+
 			//If it's the playerPoint, paint its next point as the player
 			if(playerPoint.Contains(p)){
 				SetBlock(p.x+dx,p.y+dy,Block.BlockType.player);
