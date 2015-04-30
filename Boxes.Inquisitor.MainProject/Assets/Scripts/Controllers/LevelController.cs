@@ -113,6 +113,8 @@ public class LevelController {
 	/// Adds a new Player object at a specified [x,y] position in the array.	
 	/// </summary>
 	public void AddPlayerAtPosition(int x, int y, bool appendage){
+		if (IsBlock (x, y, Block.BlockType.hazard))
+			return;
 		if (appendage) {
 			SetBlock (x, y, Block.BlockType.appendage);
 		} else {
@@ -248,7 +250,7 @@ public class LevelController {
 			return false;
 
 		//Return true if it's a player (moving unto itself is allowed) or if it's empty.
-		return (IsBlock(x,y,Block.BlockType.background) || IsBlock(x,y,Block.BlockType.appendage) || IsBlock(x,y,Block.BlockType.player) || IsBlock(x,y,Block.BlockType.goal));
+		return (IsBlock(x,y,Block.BlockType.background) || IsBlock(x,y,Block.BlockType.appendage) || IsBlock(x,y,Block.BlockType.player) || IsBlock(x,y,Block.BlockType.goal) || IsBlock(x,y,Block.BlockType.hazard));
 	}
 	
 	// Update is called once per frame
