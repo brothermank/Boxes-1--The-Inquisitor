@@ -126,14 +126,14 @@ public class LevelController {
 	/// <summary>
 	/// Attempts to move the player in a relative direction. If the path is obstructed, the player will not move. 	
 	/// </summary>
-	public void MoveRelatively(int dx, int dy) {
+	public bool MoveRelatively(int dx, int dy) {
 		List<Point> q = new List<Point>(PLAYER_POS);
 
 		foreach (Point p in q) {
 			//If this block can't move then no blocks can move
 
 			if(!CanMove(p.x+dx,p.y+dy)){
-				return;
+				return false;
 			}
 		}
 		
@@ -178,6 +178,8 @@ public class LevelController {
 
 		if (HasWon ())
 			Win ();
+
+		return true;
 	}
 
 	/// <summary>

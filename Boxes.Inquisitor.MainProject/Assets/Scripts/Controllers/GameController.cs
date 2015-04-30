@@ -39,15 +39,16 @@ public class GameController : MonoBehaviour {
 		CameraController.ResizeMainCamTo (tilesX, tilesY);
 	}
 
-	public void MovePlayer(Direction d){
+	public bool MovePlayer(Direction d){
 		if (d == Direction.left)
-			lc.MoveRelatively (-1, 0);
+			return lc.MoveRelatively (-1, 0);
 		if (d == Direction.right)
-			lc.MoveRelatively (1, 0);
+			return lc.MoveRelatively (1, 0);
 		if (d == Direction.down)
-			lc.MoveRelatively (0, -1);
+			return lc.MoveRelatively (0, -1);
 		if (d == Direction.up)
-			lc.MoveRelatively (0, 1);
+			return lc.MoveRelatively (0, 1);
+		return false;
 	}
 
 	public void DrawContents(){
