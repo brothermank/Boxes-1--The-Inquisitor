@@ -27,6 +27,7 @@ public class Block {
 			if (type == BlockType.player)
 				renderer.name = "PLAYER";
 			renderer.transform.SetParent (parent);
+			renderer.GetComponent<BlockVisualManager>().block = this;
 			visualiser = renderer;
 		}
 		Sprite sprite = GetSprite (type);
