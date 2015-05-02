@@ -5,9 +5,13 @@ public class GameController : MonoBehaviour {
 
 	public enum Direction{left, right, up, down};
 
+	public delegate void ActionOnWin(GameController gc);
+	public ActionOnWin handleWin;
+
 	private LevelController lc;
 
 	private int tilesX, tilesY;
+	public int movesThisAttempt = 0;
 	public string LevelString = "";
 	public static string GloabalLevelString = "";
 	public Level level;
@@ -17,45 +21,49 @@ public class GameController : MonoBehaviour {
 			return level.LevelData;
 		}
 	}
-
+	
+	public ScoreDisplayer score;
 	public GameObject winPanel;
 	public bool paused = false;
-	private bool testingMap = false;
-
+	
 	public bool CheckIfWinning(){
 		bool hasWon = lc.HasWon ();
 		if (hasWon)
-			Win ();
+			handleWin (this);
 		return hasWon;
 	}
-	public void Win(){
-		if (!testingMap) {
-			paused = true;
-			winPanel.SetActive (true);
-		} else {
-			paused = true;
-			LoadLevel(level);
-			testingMap = false;
-		}
+	public void Win(GameController gc){
+		gc.paused = true;
+		gc.winPanel.SetActive (true);
+		
 	}
 
 	public void restartMap(){
 		LoadLevel (level);
 	}
 	public void StartTestMap(){
-		level = new Level (LevelData);
+		score.gameObject.SetActive (true);
+		level = new Level (LevelData, "test map");
 		LoadLevel (level);
 		paused = false;
-		testingMap = false;
+	}
+	public void StartSaveMap(string mapName){
+		score.gameObject.SetActive (true);
+		level = new Level (LevelData, mapName);
+		LoadLevel (level);
+		paused = false;
 	}
 
 	// Use this for initialization
 	void Start () {
 		LoadLevel ();
+		score.UpdateScore ();
 		winPanel.SetActive (false);
+		handleWin = Win;
 	}
 
-	private void LoadLevel(){
+	public void LoadLevel(){
+		movesThisAttempt = 0;
 		if (LevelData != null) {
 			foreach (Block block in LevelData) {
 				block.RemoveObjectDisplay ();
@@ -66,6 +74,7 @@ public class GameController : MonoBehaviour {
 		} else {
 			level = SaveLoadManager.LoadLevel (LevelString);
 		}
+
 		
 		tilesX = OriginalLevelData.GetLength (0);
 		tilesY = OriginalLevelData.GetLength (1);
@@ -81,7 +90,9 @@ public class GameController : MonoBehaviour {
 		Camera.main.transform.position = new Vector3 ((float)(tilesX)/2f - 0.5f, (float)(tilesY)/2f - 0.5f, -1.5f);
 		CameraController.ResizeMainCamTo (tilesX, tilesY);
 	}
-	private void LoadLevel(Level newLevel){
+	public void LoadLevel(Level newLevel){
+		level = newLevel;
+		movesThisAttempt = 0;
 		if (LevelData != null) {
 			foreach (Block block in LevelData) {
 				block.RemoveObjectDisplay ();
@@ -110,20 +121,25 @@ public class GameController : MonoBehaviour {
 				newLevel[x,y] = new Block(Block.BlockType.background);
 			}
 		}
-		level = new Level (newLevel);
+		level = new Level (newLevel, "test level");
 		LoadLevel (level);
 	}
 
 	public bool MovePlayer(Direction d){
+		bool hasMoved = false;
 		if (d == Direction.left)
-			return lc.MoveRelatively (-1, 0);
-		if (d == Direction.right)
-			return lc.MoveRelatively (1, 0);
-		if (d == Direction.down)
-			return lc.MoveRelatively (0, -1);
-		if (d == Direction.up)
-			return lc.MoveRelatively (0, 1);
-		return false;
+			hasMoved = lc.MoveRelatively (-1, 0);
+		else if (d == Direction.right)
+			hasMoved = lc.MoveRelatively (1, 0);
+		else if (d == Direction.down)
+			hasMoved = lc.MoveRelatively (0, -1);
+		else if (d == Direction.up)
+			hasMoved = lc.MoveRelatively (0, 1);
+		if (hasMoved) {
+			movesThisAttempt++;
+			score.UpdateScore();
+		}
+		return hasMoved;
 	}
 
 	public void DeleteContents(){
@@ -143,8 +159,11 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public void SaveLevel(string saveName){
-		SaveLoadManager.SaveLevel (LevelData ,saveName);
+	public void SaveLevel(Level level){
+		SaveLoadManager.SaveLevel (level);
+	}
+	public void SaveLevel(){
+		SaveLoadManager.SaveLevel (level);
 	}
 
 	public void GoToMainMenu(int menuIndex){
@@ -158,6 +177,8 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		CheckIfWinning ();
+		if (!paused) {
+			CheckIfWinning ();
+		}
 	}
 }

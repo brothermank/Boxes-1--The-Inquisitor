@@ -17,6 +17,7 @@ public class LevelEditorManager : MonoBehaviour {
 	public GameController gc;
 	public ButtonManager buttonPrefab;
 
+	public static bool isTestingCreatorsAbilities = false;
 	public static Block.BlockType currentType;
 
 	void Start(){
@@ -25,10 +26,27 @@ public class LevelEditorManager : MonoBehaviour {
 		foreach (Block.BlockType blockType in allBlockTypes) {
 			CreateNewBlockButton(blockType);
 		}
+		gc.handleWin = WinTestLevel;
 	}
 
 	public void TestLevel(){
 		gc.StartTestMap ();
+	}
+
+	public void WinTestLevel(GameController gc){
+		gc.paused = true;
+		gc.level.playersBestScore = -1;
+		gc.level.creatorsBestScore = -1;
+		gc.LoadLevel(gc.level);
+	}
+	public void WinTestLevelAndSave(GameController gc){
+		isTestingCreatorsAbilities = false;
+		gc.paused = true;
+		gc.level.creatorsBestScore = gc.movesThisAttempt;
+		gc.SaveLevel (gc.level);
+		gc.LoadLevel (gc.level);
+		gc.handleWin = WinTestLevel;
+		CancelSave ();
 	}
 
 	private void CreateNewBlockButton(Block.BlockType type){
@@ -70,7 +88,9 @@ public class LevelEditorManager : MonoBehaviour {
 	}
 
 	public void SaveLevel(){
-		gc.SaveLevel (saveName.text);
+		isTestingCreatorsAbilities = true;
+		gc.handleWin = WinTestLevelAndSave;
+		gc.StartSaveMap (saveName.text);
 		CancelSave ();
 	}
 

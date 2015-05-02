@@ -16,6 +16,7 @@ public class SaveLoadManager {
 	}
 
 	public static Level LoadLevel(string fileName){
+		Debug.Log ("loading level");
 		List<List<Block>> blocks = new List<List<Block>> ();
 		System.IO.StreamReader file;
 		file = new System.IO.StreamReader (Application.dataPath + "/Maps/" + fileName);
@@ -24,13 +25,14 @@ public class SaveLoadManager {
 		char[] chars = line.ToCharArray ();
 		int y = 0;
 		bool fileCorrupted = false;
+		bool highscoresMissing = false;
 		
 		//Analyse first line...  Get upper left corner coordinates from first two numbers in file
 		List<int> intsInFirstLine = getIntsInString (line);
 		List<Block> blocksInLine;
-		if (intsInFirstLine.Count != 4) {
-			Debug.Log("Missing information in first line. File will be handeled as corrupted. When trying too load: " + fileName);
-			fileCorrupted = true;
+		if (intsInFirstLine.Count < 3) {
+			Debug.Log("Missing highscore information. Highscores set to -1. When trying too load: " + fileName);
+			highscoresMissing = true;
 		}
 		int expectedWidth = intsInFirstLine [0];
 		int expectedHeight = intsInFirstLine [1];
@@ -66,7 +68,12 @@ public class SaveLoadManager {
 			xa = 0;
 			ya++;
 		}
-		Level level = new Level (blockA, intsInFirstLine [3], intsInFirstLine [4]);
+		Level level;
+		if (!highscoresMissing) {
+			 level = new Level (blockA, fileName, intsInFirstLine [2], intsInFirstLine [3]);
+		} else {
+			 level = new Level (blockA, fileName);
+		}
 		return level;
 	}
 
@@ -203,11 +210,12 @@ public class SaveLoadManager {
 	/// <summary>
 	/// Saves a two dimensional block array
 	/// </summary>
-	public static void SaveLevel(Block[,] blocks, string saveName){
+	public static void SaveLevel(Level level){
+		Block[,] blocks = level.LevelData;
 		List<string> lines = new List<string> ();
 		int width = blocks.GetLength(0);
 		int height = blocks.GetLength(1);
-		string nextLine = "" + width + " " + height;
+		string nextLine = "" + width + " " + height + " " + level.creatorsBestScore + " " + level.playersBestScore;
 		lines.Add (nextLine);
 		for (int y = 0; y < height; y++) {
 			nextLine = "";
@@ -221,6 +229,6 @@ public class SaveLoadManager {
 			}
 			lines.Add(nextLine);
 		}
-		System.IO.File.WriteAllLines (Application.dataPath + "/Maps/" + saveName + ".txt", lines.ToArray ());
+		System.IO.File.WriteAllLines (Application.dataPath + "/Maps/" + level.levelName + ".txt", lines.ToArray ());
 	}
 }
