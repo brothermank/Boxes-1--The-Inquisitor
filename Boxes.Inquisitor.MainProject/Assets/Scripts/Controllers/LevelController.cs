@@ -99,7 +99,7 @@ public class LevelController {
 		return true;
 	}
 	private void Win(){
-		MainMenuManager.LoadNextLevel ();
+		
 	}
 
 	private void setGoalBlocksBack(){
@@ -175,9 +175,6 @@ public class LevelController {
 		}
 
 		setGoalBlocksBack ();
-
-		if (HasWon ())
-			Win ();
 
 		return true;
 	}

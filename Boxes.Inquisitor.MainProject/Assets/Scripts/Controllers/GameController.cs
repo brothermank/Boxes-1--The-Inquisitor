@@ -12,8 +12,18 @@ public class GameController : MonoBehaviour {
 	public static string GloabalLevelString = "";
 	public Block[,] LevelData;
 
-	public bool HasWon(){
-		return lc.HasWon ();
+	public GameObject winPanel;
+	public bool paused = false;
+
+	public bool CheckIfWinning(){
+		bool hasWon = lc.HasWon ();
+		if (hasWon)
+			Win ();
+		return hasWon;
+	}
+	public void Win(){
+		paused = true;
+		winPanel.SetActive (true);
 	}
 
 	public void restartMap(){
@@ -24,6 +34,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		LoadLevel ();
+		winPanel.SetActive (false);
 	}
 
 	private void LoadLevel(){
@@ -96,9 +107,18 @@ public class GameController : MonoBehaviour {
 	public void SaveLevel(string saveName){
 		SaveLoadManager.SaveLevel (LevelData ,saveName);
 	}
+
+	public void GoToMainMenu(int menuIndex){
+		MainMenuManager.activeMenu = (MainMenuManager.Panel)menuIndex;
+		Application.LoadLevel (0);
+	}
+
+	public void NextLevel(){
+		MainMenuManager.LoadNextLevel ();
+	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		CheckIfWinning ();
 	}
 }

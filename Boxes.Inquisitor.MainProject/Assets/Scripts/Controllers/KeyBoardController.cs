@@ -19,7 +19,8 @@ public class KeyBoardController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		Controls ();
+		if(!gc.paused)
+			Controls ();
 	}
 
 	

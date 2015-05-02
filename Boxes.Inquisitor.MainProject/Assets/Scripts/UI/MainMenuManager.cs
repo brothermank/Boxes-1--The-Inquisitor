@@ -6,6 +6,10 @@ using System.IO;
 
 public class MainMenuManager : MonoBehaviour {
 
+	public enum Panel{mainMenu, selectScene};
+
+	public static Panel activeMenu = Panel.mainMenu;
+
 	public GameObject mainMenuPanel;
 	public GameObject loadLevelPanel;
 	public GameObject loadLevelContentPanel;
@@ -16,8 +20,16 @@ public class MainMenuManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		dInfo = new DirectoryInfo (Application.dataPath + "/Maps/");
-		loadLevelPanel.SetActive (false);
-		mainMenuPanel.SetActive (true);
+		SetPanelToActive (activeMenu);
+	}
+
+	private void SetPanelToActive(Panel panel){
+		if (panel == Panel.mainMenu) {
+			mainMenuPanel.SetActive (true);
+			loadLevelPanel.SetActive (false);
+		} else if (panel == Panel.selectScene) {
+			GoToLevelSelect();
+		}
 	}
 	
 	public void GoToLevelSelect(){
