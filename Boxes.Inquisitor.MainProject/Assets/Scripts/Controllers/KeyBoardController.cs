@@ -10,6 +10,12 @@ public class KeyBoardController : MonoBehaviour {
 	public KeyCode r = KeyCode.R;
 	public GameController gc;
 
+	private Score scoreSystem;
+
+	void Start(){
+		scoreSystem = GameObject.Find("gameController").GetComponentInParent<Score> ();
+		Debug.Log ("ss="+scoreSystem.ToString());
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -22,16 +28,21 @@ public class KeyBoardController : MonoBehaviour {
 	/// </summary>
 	void Controls(){
 		if (Input.GetKeyDown (up)) {
-			gc.MovePlayer(GameController.Direction.up);
+			if(gc.MovePlayer(GameController.Direction.up))
+				scoreSystem.addMove();
+
 		}
 		if (Input.GetKeyDown (down)) {
-			gc.MovePlayer(GameController.Direction.down);
+			if(gc.MovePlayer(GameController.Direction.down))
+				scoreSystem.addMove();
 		}
 		if (Input.GetKeyDown (left)) {
-			gc.MovePlayer(GameController.Direction.left);
+			if(gc.MovePlayer(GameController.Direction.left))
+				scoreSystem.addMove();
 		}
-		 if (Input.GetKeyDown (right)) {
-			gc.MovePlayer(GameController.Direction.right);
+		if (Input.GetKeyDown (right)) {
+			if(gc.MovePlayer(GameController.Direction.right))
+				scoreSystem.addMove();
 		}
 		if (Input.GetKeyDown (r)) {
 			Debug.Log("restart");
