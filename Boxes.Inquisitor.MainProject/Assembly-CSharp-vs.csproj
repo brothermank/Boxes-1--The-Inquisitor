@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Block.cs" />
      <Compile Include="Assets\Scripts\Controllers\CameraController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\Scripts\Controllers\KeyBoardController.cs" />
@@ -54,17 +53,22 @@
      <Compile Include="Assets\Scripts\Controllers\SwipeControls.cs" />
      <Compile Include="Assets\Scripts\Level Editor\BlockVisualManager.cs" />
      <Compile Include="Assets\Scripts\Level Editor\LevelEditorManager.cs" />
-     <Compile Include="Assets\Scripts\Point.cs" />
+     <Compile Include="Assets\Scripts\Logistics\Block.cs" />
+     <Compile Include="Assets\Scripts\Logistics\Level.cs" />
+     <Compile Include="Assets\Scripts\Logistics\Point.cs" />
      <Compile Include="Assets\Scripts\SaveLoadManager.cs" />
-     <Compile Include="Assets\Scripts\Score.cs" />
+     <Compile Include="Assets\Scripts\ScoreDisplayer.cs" />
      <Compile Include="Assets\Scripts\TestScript.cs" />
      <Compile Include="Assets\Scripts\UI\ButtonManager.cs" />
      <Compile Include="Assets\Scripts\UI\MainMenuManager.cs" />
      <None Include="Assets\Maps\001.txt" />
      <None Include="Assets\Maps\006.txt" />
      <None Include="Assets\Maps\002.txt" />
+     <None Include="Assets\Maps\helikopteren.txt" />
      <None Include="Assets\Maps\005.txt" />
+     <None Include="Assets\Maps\Lava Level 1.txt" />
      <None Include="Assets\Maps\007.txt" />
+     <None Include="Assets\Maps\Lava 3.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
