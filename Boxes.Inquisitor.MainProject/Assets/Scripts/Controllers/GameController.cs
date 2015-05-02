@@ -10,10 +10,11 @@ public class GameController : MonoBehaviour {
 	private int tilesX, tilesY;
 	public string LevelString = "";
 	public static string GloabalLevelString = "";
-	public Block[,] LevelData;
+	public Block[,] LevelData, OriginalLevelData;
 
 	public GameObject winPanel;
 	public bool paused = false;
+	private bool testingMap = false;
 
 	public bool CheckIfWinning(){
 		bool hasWon = lc.HasWon ();
@@ -22,13 +23,23 @@ public class GameController : MonoBehaviour {
 		return hasWon;
 	}
 	public void Win(){
-		paused = true;
-		winPanel.SetActive (true);
+		if (!testingMap) {
+			paused = true;
+			winPanel.SetActive (true);
+		} else {
+			paused = true;
+			LoadLevel(OriginalLevelData);
+			testingMap = false;
+		}
 	}
 
 	public void restartMap(){
-		lc.restartMap ();
-		DrawContents ();
+		LoadLevel (OriginalLevelData);
+	}
+	public void StartTestMap(){
+		LoadLevel (LevelData);
+		paused = false;
+		testingMap = false;
 	}
 
 	// Use this for initialization
@@ -52,6 +63,12 @@ public class GameController : MonoBehaviour {
 		lc = new LevelController (LevelData);
 		tilesX = LevelData.GetLength (0);
 		tilesY = LevelData.GetLength (1);
+		OriginalLevelData = new Block[tilesX, tilesY];
+		for (int x = 0; x < tilesX; x++) {
+			for(int y = 0; y < tilesY; y++){
+				OriginalLevelData[x,y] = new Block(LevelData[x,y].getType());
+			}
+		}
 		DrawContents ();
 		
 		Camera.main.transform.position = new Vector3 ((float)(tilesX)/2f - 0.5f, (float)(tilesY)/2f - 0.5f, -1.5f);
@@ -68,6 +85,12 @@ public class GameController : MonoBehaviour {
 		lc = new LevelController (LevelData);
 		tilesX = LevelData.GetLength (0);
 		tilesY = LevelData.GetLength (1);
+		OriginalLevelData = new Block[tilesX, tilesY];
+		for (int x = 0; x < tilesX; x++) {
+			for(int y = 0; y < tilesY; y++){
+				OriginalLevelData[x,y] = new Block(LevelData[x,y].getType());
+			}
+		}
 		DrawContents ();
 		
 		Camera.main.transform.position = new Vector3 ((float)(tilesX)/2f - 0.5f, (float)(tilesY)/2f - 0.5f, -1.5f);
@@ -95,6 +118,14 @@ public class GameController : MonoBehaviour {
 		return false;
 	}
 
+	public void DeleteContents(){
+		Block[,] LEVEL = lc.GetLevel();
+		for(int x=0; x<tilesX; x++){
+			for(int y=0; y<tilesY; y++){
+				LEVEL[x,y].RemoveObjectDisplay();
+			}
+		}
+	}
 	public void DrawContents(){
 		Block[,] LEVEL = lc.GetLevel();
 		for(int x=0; x<tilesX; x++){

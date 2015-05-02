@@ -27,6 +27,10 @@ public class LevelEditorManager : MonoBehaviour {
 		}
 	}
 
+	public void TestLevel(){
+		gc.StartTestMap ();
+	}
+
 	private void CreateNewBlockButton(Block.BlockType type){
 		ButtonManager newButton = Instantiate(buttonPrefab) as ButtonManager;
 		newButton.transform.SetParent (blockButtonPanel.transform);

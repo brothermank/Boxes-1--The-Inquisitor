@@ -8,13 +8,12 @@ public class KeyBoardController : MonoBehaviour {
 	public KeyCode left = KeyCode.LeftArrow;
 	public KeyCode right = KeyCode.RightArrow;
 	public KeyCode r = KeyCode.R;
-	public GameController gc;
+	public GameController gc;	
 
 	private Score scoreSystem;
 
 	void Start(){
 		scoreSystem = GameObject.Find("gameController").GetComponentInParent<Score> ();
-		Debug.Log ("ss="+scoreSystem.ToString());
 	}
 
 	// Update is called once per frame
@@ -45,8 +44,7 @@ public class KeyBoardController : MonoBehaviour {
 			if(gc.MovePlayer(GameController.Direction.right))
 				scoreSystem.addMove();
 		}
-		if (Input.GetKeyDown (r)) {
-			Debug.Log("restart");
+		if (Input.GetKeyDown (r)) {	
 			gc.restartMap();
 		}
 	}

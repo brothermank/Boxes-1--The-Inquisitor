@@ -37,6 +37,7 @@ public class LevelController {
 
 		FindPlayerPositions ();
 		FindGoalPositions ();
+		Debug.Log (PLAYER_POS.Count);
 
 		INITIAL_PLAYER_POS = new List<Point> (PLAYER_POS);
 		Array.Copy (LEVEL, INITIAL_LEVEL, tilesX*tilesY);
