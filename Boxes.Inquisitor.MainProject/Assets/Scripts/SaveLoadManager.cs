@@ -65,6 +65,12 @@ public class SaveLoadManager {
 
 		return blockA;
 	}
+
+	public static int GetFirstIntInString(string line){
+		List<int> ints = getIntsInString (line);
+		if(ints.Count> 0) return ints[0];
+		return -1;
+	}
 	
 	/// <summary>
 	/// Returns a list of all ints in the line seperated by all other characters. If a '-' is infront of a row of numbers, the number is considered negative

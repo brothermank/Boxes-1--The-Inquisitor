@@ -23,20 +23,53 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log (GloabalLevelString);
+		LoadLevel ();
+	}
+
+	private void LoadLevel(){
+		if (LevelData != null) {
+			foreach (Block block in LevelData) {
+				block.RemoveObjectDisplay ();
+			}
+		}
 		if (LevelString == "") {
 			LevelData = SaveLoadManager.LoadLevel (GloabalLevelString);
 		} else {
 			LevelData = SaveLoadManager.LoadLevel (LevelString);
 		}
-
+		
 		lc = new LevelController (LevelData);
 		tilesX = LevelData.GetLength (0);
 		tilesY = LevelData.GetLength (1);
 		DrawContents ();
-
+		
 		Camera.main.transform.position = new Vector3 ((float)(tilesX)/2f - 0.5f, (float)(tilesY)/2f - 0.5f, -1.5f);
 		CameraController.ResizeMainCamTo (tilesX, tilesY);
+	}
+	private void LoadLevel(Block[,] newLevelData){
+		if (LevelData != null) {
+			foreach (Block block in LevelData) {
+				block.RemoveObjectDisplay ();
+			}
+		}
+		LevelData = newLevelData;
+		
+		lc = new LevelController (LevelData);
+		tilesX = LevelData.GetLength (0);
+		tilesY = LevelData.GetLength (1);
+		DrawContents ();
+		
+		Camera.main.transform.position = new Vector3 ((float)(tilesX)/2f - 0.5f, (float)(tilesY)/2f - 0.5f, -1.5f);
+		CameraController.ResizeMainCamTo (tilesX, tilesY);
+	}
+	public void CreateNewLevel (int width, int height){
+		Block[,] newLevel = new Block[width, height];
+		for (int x = 0; x < width; x++) {
+			for(int y = 0; y < height; y++){
+				newLevel[x,y] = new Block(Block.BlockType.background);
+			}
+		}
+		LoadLevel (newLevel);
 	}
 
 	public bool MovePlayer(Direction d){
@@ -58,6 +91,10 @@ public class GameController : MonoBehaviour {
 				LEVEL[x,y].DisplayObject(x,y);
 			}
 		}
+	}
+
+	public void SaveLevel(string saveName){
+		SaveLoadManager.SaveLevel (LevelData ,saveName);
 	}
 	
 	// Update is called once per frame

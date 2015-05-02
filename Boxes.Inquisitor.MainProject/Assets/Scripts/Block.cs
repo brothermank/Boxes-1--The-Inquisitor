@@ -13,6 +13,15 @@ public class Block {
 		this.type = type;
 	}
 
+	public static BlockType[] GetAllBlockTypes(){
+		System.Array a = System.Enum.GetValues (typeof(BlockType));
+		BlockType[] blocks = new BlockType[a.Length];
+		for (int i = 0; i < blocks.Length; i++) {
+			blocks[i] = (BlockType)a.GetValue(i);
+		}
+		return blocks;
+	}
+
 	/// <summary>
 	/// Displays a block with the blocks type at position x,y. If the block is already displayed, the previous displayer will be destroyed  	
 	/// </summary>
@@ -34,7 +43,7 @@ public class Block {
 		visualiser.sprite = sprite;
 	}
 
-	private Sprite GetSprite(BlockType type){
+	public static Sprite GetSprite(BlockType type){
 		string basePath = "Art/Blocks/";
 		string objectName = "";
 		switch (type) {

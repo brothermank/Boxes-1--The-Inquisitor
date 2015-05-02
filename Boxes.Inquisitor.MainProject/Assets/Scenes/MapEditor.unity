@@ -1345,13 +1345,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b116c1baa1e8d4581ab5ea19d3c1a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockButtonPanel: {fileID: 0}
-  savePanel: {fileID: 0}
-  overwriteWarningPanel: {fileID: 0}
-  createNewLevelPanel: {fileID: 0}
-  widthInput: {fileID: 0}
-  heightInput: {fileID: 0}
-  name: {fileID: 0}
+  blockButtonPanel: {fileID: 1261200589}
+  savePanel: {fileID: 376321988}
+  overwriteWarningPanel: {fileID: 1206584736}
+  createNewLevelPanel: {fileID: 124357147}
+  widthInput: {fileID: 1396050841}
+  heightInput: {fileID: 1960287968}
+  saveName: {fileID: 1276740771}
+  usedExtensionForSaves: .txt
+  gc: {fileID: 1540053035}
+  buttonPrefab: {fileID: 11491378, guid: 13b38f0730c8929479d5aa54ccacfcaf, type: 2}
 --- !u!222 &902639071
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2069,6 +2072,7 @@ GameObject:
   - 224: {fileID: 1343834377}
   - 222: {fileID: 1343834379}
   - 114: {fileID: 1343834378}
+  - 61: {fileID: 1343834380}
   m_Layer: 5
   m_Name: MapEditorPanel
   m_TagString: Untagged
@@ -2131,6 +2135,19 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1343834376}
+--- !u!61 &1343834380
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1343834376}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 9.99999975e-05, y: 1}
 --- !u!1 &1396050839
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,6 +2340,46 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1458313037}
+--- !u!1 &1540053034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1540053036}
+  - 114: {fileID: 1540053035}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1540053035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1540053034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72ea66579782f7499593a3e7df80ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelString: 
+--- !u!4 &1540053036
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1540053034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 541, y: 228, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1 &1540980930
 GameObject:
   m_ObjectHideFlags: 0

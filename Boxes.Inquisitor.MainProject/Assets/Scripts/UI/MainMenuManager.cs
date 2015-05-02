@@ -48,6 +48,10 @@ public class MainMenuManager : MonoBehaviour {
 		Application.LoadLevel (1);
 	}
 
+	public void GoToScene(int index){
+		Application.LoadLevel (index);
+	}
+
 	private static string GetNameExtension(string name){
 		string extension = "";
 		char[] a = name.ToCharArray ();
