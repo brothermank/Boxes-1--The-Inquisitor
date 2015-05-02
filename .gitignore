@@ -72,3 +72,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.csproj
+*.sln
+Boxes.Inquisitor.MainProject/ProjectSettings/ProjectSettings.asset
