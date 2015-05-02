@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Level : MonoBehaviour {
+public class Level {
+	public Block[,] LevelData;
+	public int creatorsBestScore = -1;
+	public int playersBestScore = -1;
 
-	// Use this for initialization
-	void Start () {
-	
+	public Level(Block[,] levelArray){
+		LevelData = levelArray;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public Level(Block[,] levelArray, int creatorsBestScore, int playersBestScore){
+		LevelData = levelArray;
+		this.creatorsBestScore = creatorsBestScore;
+		this.playersBestScore = playersBestScore;
 	}
+
 }

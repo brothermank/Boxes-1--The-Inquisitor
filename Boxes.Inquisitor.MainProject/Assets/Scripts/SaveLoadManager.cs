@@ -15,7 +15,7 @@ public class SaveLoadManager {
 		return s.Replace(".","0").Replace("X","1").Replace("O","2").Replace("M","3").Replace("S","3").Replace("G","4").Replace("H","6");
 	}
 
-	public static Block[,] LoadLevel(string fileName){
+	public static Level LoadLevel(string fileName){
 		List<List<Block>> blocks = new List<List<Block>> ();
 		System.IO.StreamReader file;
 		file = new System.IO.StreamReader (Application.dataPath + "/Maps/" + fileName);
@@ -26,10 +26,14 @@ public class SaveLoadManager {
 		bool fileCorrupted = false;
 		
 		//Analyse first line...  Get upper left corner coordinates from first two numbers in file
-		List<int> intsInLine = getIntsInString (line);
+		List<int> intsInFirstLine = getIntsInString (line);
 		List<Block> blocksInLine;
-		int expectedWidth = intsInLine [0];
-		int expectedHeight = intsInLine [1];
+		if (intsInFirstLine.Count != 4) {
+			Debug.Log("Missing information in first line. File will be handeled as corrupted. When trying too load: " + fileName);
+			fileCorrupted = true;
+		}
+		int expectedWidth = intsInFirstLine [0];
+		int expectedHeight = intsInFirstLine [1];
 		
 		while ((line = sanitizeString(file.ReadLine ())) != null) {
 			blocks.Add(new List<Block>());
@@ -62,8 +66,8 @@ public class SaveLoadManager {
 			xa = 0;
 			ya++;
 		}
-
-		return blockA;
+		Level level = new Level (blockA, intsInFirstLine [3], intsInFirstLine [4]);
+		return level;
 	}
 
 	public static int GetFirstIntInString(string line){
