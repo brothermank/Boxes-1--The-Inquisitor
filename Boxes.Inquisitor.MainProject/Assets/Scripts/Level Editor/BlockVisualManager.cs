@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class BlockVisualManager : MonoBehaviour {
 
@@ -11,7 +12,11 @@ public class BlockVisualManager : MonoBehaviour {
 
 
 		if (Input.GetMouseButton (0) && !EventSystem.current.IsPointerOverGameObject(-1) && !LevelEditorManager.isTestingCreatorsAbilities) {
-			block.SetType (LevelEditorManager.currentType);
+			try{
+				block.SetType (LevelEditorManager.currentType);
+			}catch(NullReferenceException e){
+				return;
+			}
 		}
 	}
 

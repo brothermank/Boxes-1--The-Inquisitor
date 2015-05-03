@@ -80,6 +80,8 @@ public class Block {
 	/// Sets the type of the block, and updates it's display (if any) to reflect the new type
 	/// </summary>
 	public void SetType(BlockType newType){
+		Debug.Log ("newType="+newType);
+		Debug.Log ("vis="+visualiser.ToString());
 		type = newType;
 		if(visualiser != null){
 			visualiser.sprite = GetSprite(type);
