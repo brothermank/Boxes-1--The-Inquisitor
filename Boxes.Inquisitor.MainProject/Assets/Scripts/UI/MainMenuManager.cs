@@ -16,6 +16,7 @@ public class MainMenuManager : MonoBehaviour {
 	public ButtonManager buttonPrefab;
 	private static DirectoryInfo dInfo;
 	public static int lastLevelIndex = -1;
+	public int desiredScene = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -41,6 +42,18 @@ public class MainMenuManager : MonoBehaviour {
 			CreateLoadMapButton(file, currentIndex);
 			currentIndex++;
 		}
+		desiredScene = 1;
+	}
+	public void GoToLevelSelectForEditor(){
+		mainMenuPanel.SetActive (false);
+		loadLevelPanel.SetActive (true);
+		FileInfo[] fInfo =  dInfo.GetFiles ();
+		int currentIndex = 0;
+		foreach (FileInfo file in ReturnValidFiles (fInfo)) {
+			CreateLoadMapButton(file, currentIndex);
+			currentIndex++;
+		}
+		desiredScene = 2;
 	}
 	public void GoToMainMenu(){
 		loadLevelPanel.SetActive (false);
@@ -57,7 +70,7 @@ public class MainMenuManager : MonoBehaviour {
 	private void StartLevel(string levelFileName, int levelIndex){
 		lastLevelIndex = levelIndex;
 		GameController.GloabalLevelString = levelFileName;
-		Application.LoadLevel (1);
+		Application.LoadLevel (desiredScene);
 	}
 
 	public void GoToScene(int index){
@@ -77,6 +90,7 @@ public class MainMenuManager : MonoBehaviour {
 		}
 		return extension;
 	}
+
 
 	private static FileInfo[] ReturnValidFiles(FileInfo[] allFiles){
 		List<FileInfo> validFiles = new List<FileInfo> ();

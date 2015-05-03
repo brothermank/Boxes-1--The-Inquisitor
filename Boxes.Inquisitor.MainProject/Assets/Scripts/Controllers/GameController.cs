@@ -174,6 +174,10 @@ public class GameController : MonoBehaviour {
 	public void NextLevel(){
 		MainMenuManager.LoadNextLevel ();
 	}
+	public void RestartLevel(){
+		LoadLevel (level);
+		winPanel.SetActive (false);
+	}
 	
 	// Update is called once per frame
 	void Update () {
