@@ -39,6 +39,8 @@ public class GameController : MonoBehaviour {
 	/// Default assigned handleWin() action. Pauses the game and activates the Win Panel
 	/// </summary>
 	public void Win(GameController gc){
+		/*gc.level.playersBestScore = movesThisAttempt;
+		gc.SaveLevel ();*/
 		gc.paused = true;
 		gc.winPanel.SetActive (true);
 	}

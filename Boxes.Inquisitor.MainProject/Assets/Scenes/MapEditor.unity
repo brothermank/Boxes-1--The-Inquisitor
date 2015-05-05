@@ -232,6 +232,7 @@ GameObject:
   - 224: {fileID: 124357148}
   - 222: {fileID: 124357150}
   - 114: {fileID: 124357149}
+  - 114: {fileID: 124357151}
   m_Layer: 5
   m_Name: Create New Level Panel
   m_TagString: Untagged
@@ -287,6 +288,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 124357147}
+--- !u!114 &124357151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 124357147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aa98a8073c764c44b2fbe89d7ef68a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &137840342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,6 +1130,8 @@ MonoBehaviour:
   right: 275
   r: 114
   gc: {fileID: 1540053035}
+  holdTimeForExtraMove: .100000001
+  timeSinceLastMove: 0
 --- !u!4 &592927684
 Transform:
   m_ObjectHideFlags: 0

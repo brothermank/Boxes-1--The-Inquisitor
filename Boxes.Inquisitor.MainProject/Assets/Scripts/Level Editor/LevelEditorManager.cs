@@ -33,7 +33,7 @@ public class LevelEditorManager : MonoBehaviour {
 	/// Starts the level in the GameController as test map and sets the handleWin method to WinTestLevel
 	/// </summary>	
 	public void TestLevel(){
-		gc.handleWin = WinTestLevel ();
+		gc.handleWin = WinTestLevel;
 		gc.StartTestMap ();
 	}
 
