@@ -19,6 +19,21 @@ public class LevelEditorManager : MonoBehaviour {
 
 	public static bool isTestingCreatorsAbilities = false;
 	public static Block.BlockType currentType;
+	public static Stack moves = new Stack();
+	public static Stack undoneMoves = new Stack();
+
+	public struct Move{
+		public int x;
+		public int y;
+		public Block.BlockType changedFrom;
+
+		public Move(Block.BlockType changedFrom, int posx, int posy){
+			this.x = posx;
+			this.y = posy;
+			this.changedFrom = changedFrom;
+		}
+	}
+	
 
 	void Start(){
 		dInfo = new DirectoryInfo (Application.dataPath + "/Maps/");
@@ -28,7 +43,35 @@ public class LevelEditorManager : MonoBehaviour {
 		}
 		gc.handleWin = WinTestLevel;
 	}
+	void Update(){
+		//if(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)){
+			if(Input.GetKeyDown(KeyCode.Z)){
+				UndoLastMove();
+			}
+			if(Input.GetKeyDown(KeyCode.Y)){
+				Redo();
+			}
+		//}
+	}
 
+	public void UndoLastMove(){
+		if (moves.Count > 0) {
+			Move lastMove = (Move)moves.Pop ();
+			int x = lastMove.x;
+			int y = lastMove.y;
+			undoneMoves.Push (new Move (gc.LevelData [x, y].getType (), x, y));
+			gc.LevelData [lastMove.x, lastMove.y].SetType (lastMove.changedFrom);
+		}
+	}
+	public void Redo(){
+		if (undoneMoves.Count > 0) {
+			Move undoneMove = (Move)undoneMoves.Pop ();
+			int x = undoneMove.x;
+			int y = undoneMove.y;
+			moves.Push (new Move (gc.LevelData [x, y].getType (), x, y));
+			gc.LevelData [undoneMove.x, undoneMove.y].SetType (undoneMove.changedFrom);
+		}
+	}
 	/// <summary>
 	/// Starts the level in the GameController as test map and sets the handleWin method to WinTestLevel
 	/// </summary>	

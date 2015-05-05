@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class InputFiledTabManager : MonoBehaviour {
 
 	InputField[] inputFields;
-	int currentInputfieldIndex = 0;
+	int currentInputfieldIndex = -1;
 
 	void Start(){
 		inputFields = GetComponentsInChildren<InputField> ();

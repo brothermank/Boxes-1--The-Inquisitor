@@ -39,7 +39,11 @@ public class Block {
 			if (type == BlockType.player)
 				renderer.name = "PLAYER";
 			renderer.transform.SetParent (parent);
-			renderer.GetComponent<BlockVisualManager>().block = this;
+			BlockVisualManager manager = renderer.GetComponent<BlockVisualManager>();
+			manager.block = this;
+			manager.posx = x;
+			manager.posy = y;
+
 			visualiser = renderer;
 		}
 		Sprite sprite = GetSprite (type);
