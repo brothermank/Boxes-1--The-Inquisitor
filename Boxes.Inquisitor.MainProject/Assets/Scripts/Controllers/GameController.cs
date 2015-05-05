@@ -75,6 +75,7 @@ public class GameController : MonoBehaviour {
 		score.UpdateScore ();
 		winPanel.SetActive (false);
 		handleWin = Win;
+		AudioController ac = new AudioController ();
 	}
 
 	
