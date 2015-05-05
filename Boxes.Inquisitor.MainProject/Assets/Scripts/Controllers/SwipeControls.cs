@@ -10,7 +10,9 @@ public class SwipeControls : MonoBehaviour {
 	
 	}
 	
-	// Update is called once per frame
+	/// <summary>
+	/// Checks for touch actions
+	/// </summary>	
 	void Update () {
 		if (Input.touchCount > 0) {
 			if(Input.GetTouch(0).phase == TouchPhase.Began){

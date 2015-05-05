@@ -5,7 +5,6 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 	
 	Camera controlledCam;
-	
 	public float zoomSpeed = 4;
 	public float baseMoveSpeed = 0.515f;
 	float actualMoveSpeed{
@@ -14,16 +13,15 @@ public class CameraController : MonoBehaviour {
 		}
 	}
 	
-	// Use this for initialization
 	void Start () {
 		controlledCam = GetComponent<Camera> ();
 	}
-	
-	// Update is called once per frame
 	void Update () {
 		Controls ();
 	}
-	
+	/// <summary>
+	/// Checks for keyboard input, and executes assigned actions.
+	/// </summary>	
 	void Controls(){
 		if (Input.GetKey (KeyCode.Q)) {
 			controlledCam.orthographicSize += zoomSpeed * Time.deltaTime;
@@ -49,7 +47,9 @@ public class CameraController : MonoBehaviour {
 		} 
 	}
 
-	
+	/// <summary>
+	/// Resizes the orthographic size, so all of a rectangle with the designated width and height, fits into the view.
+	/// </summary>
 	public static void ResizeMainCamTo(int width, int height){
 		if (height * Camera.main.aspect > width) {
 			Camera.main.orthographicSize = (float)height / 2;

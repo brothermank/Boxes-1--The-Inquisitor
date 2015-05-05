@@ -13,6 +13,9 @@ public class Block {
 		this.type = type;
 	}
 
+	/// <summary>
+	/// Gets an array containing an instance of each block type
+	/// </summary>	
 	public static BlockType[] GetAllBlockTypes(){
 		System.Array a = System.Enum.GetValues (typeof(BlockType));
 		BlockType[] blocks = new BlockType[a.Length];
@@ -43,6 +46,9 @@ public class Block {
 		visualiser.sprite = sprite;
 	}
 
+	/// <summary>
+	/// Gets the sprite used for the given type
+	/// </summary>	
 	public static Sprite GetSprite(BlockType type){
 		string basePath = "Art/Blocks/";
 		string objectName = "";
@@ -87,6 +93,9 @@ public class Block {
 			visualiser.sprite = GetSprite(type);
 		}
 	}
+	/// <summary>
+	/// Gets the block's type
+	/// </summary>	
 	public BlockType getType(){
 		return type;
 	}

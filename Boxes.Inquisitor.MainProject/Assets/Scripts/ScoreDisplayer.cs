@@ -11,7 +11,9 @@ public class ScoreDisplayer : MonoBehaviour {
 	public GameController gc;
 
 
-	// Use this for initialization
+	/// <summary>
+	/// Updates the displayed values so they corresponds with the values in gc.
+	/// </summary>	
 	public void UpdateScore(){
 		if (gc.level == null) {
 			if(mainPanel.activeSelf){

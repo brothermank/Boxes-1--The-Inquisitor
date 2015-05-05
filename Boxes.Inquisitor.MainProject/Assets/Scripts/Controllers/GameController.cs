@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameController : MonoBehaviour {
@@ -25,28 +25,41 @@ public class GameController : MonoBehaviour {
 	public ScoreDisplayer score;
 	public GameObject winPanel;
 	public bool paused = false;
-	
+
+	/// <summary>
+	/// Returns whether it is tru that the player has won, and if it is true, also handles the win. (handleWin())
+	/// </summary>
 	public bool CheckIfWinning(){
 		bool hasWon = lc.HasWon ();
 		if (hasWon)
 			handleWin (this);
 		return hasWon;
 	}
+	/// <summary>
+	/// Default assigned handleWin() action. Pauses the game and activates the Win Panel
+	/// </summary>
 	public void Win(GameController gc){
 		gc.paused = true;
 		gc.winPanel.SetActive (true);
-		
 	}
-
+	/// <summary>
+	/// Loads the level again to achieve a restart of the level.
+	/// </summary>
 	public void restartMap(){
 		LoadLevel (level);
 	}
+	/// <summary>
+	/// Starts the currently assigned level as a new level, so records are not saved.
+	/// </summary>
 	public void StartTestMap(){
 		score.gameObject.SetActive (true);
 		level = new Level (LevelData, "test map");
 		LoadLevel (level);
 		paused = false;
 	}
+	/// <summary>
+	/// Creates a new level (no records) with the designated map name, and current LevelData
+	/// </summary>
 	public void StartSaveMap(string mapName){
 		score.gameObject.SetActive (true);
 		level = new Level (LevelData, mapName);
@@ -62,6 +75,10 @@ public class GameController : MonoBehaviour {
 		handleWin = Win;
 	}
 
+	
+	/// <summary>
+	/// Loads and instantiates the level stored at the GlobalLevelString
+	/// </summary>	
 	public void LoadLevel(){
 		movesThisAttempt = 0;
 		if (LevelData != null) {
@@ -90,6 +107,9 @@ public class GameController : MonoBehaviour {
 		Camera.main.transform.position = new Vector3 ((float)(tilesX)/2f - 0.5f, (float)(tilesY)/2f - 0.5f, -1.5f);
 		CameraController.ResizeMainCamTo (tilesX, tilesY);
 	}
+	/// <summary>
+	/// Loads and instantiates given level
+	/// </summary>	
 	public void LoadLevel(Level newLevel){
 		level = newLevel;
 		movesThisAttempt = 0;
@@ -114,6 +134,9 @@ public class GameController : MonoBehaviour {
 		Camera.main.transform.position = new Vector3 ((float)(tilesX)/2f - 0.5f, (float)(tilesY)/2f - 0.5f, -1.5f);
 		CameraController.ResizeMainCamTo (tilesX, tilesY);
 	}
+	/// <summary>
+	/// Creates a level with only sand blocks (type 0) with the given width and height
+	/// </summary>	
 	public void CreateNewLevel (int width, int height){
 		Block[,] newLevel = new Block[width, height];
 		for (int x = 0; x < width; x++) {
@@ -125,6 +148,9 @@ public class GameController : MonoBehaviour {
 		LoadLevel (level);
 	}
 
+	/// <summary>
+	/// Moves the player in the direction, using the LevelController.MoveRelatively function.
+	/// </summary>	
 	public bool MovePlayer(Direction d){
 		bool hasMoved = false;
 		if (d == Direction.left)
@@ -142,6 +168,9 @@ public class GameController : MonoBehaviour {
 		return hasMoved;
 	}
 
+	/// <summary>
+	/// Deletes all visualisers
+	/// </summary>	
 	public void DeleteContents(){
 		Block[,] LEVEL = lc.GetLevel();
 		for(int x=0; x<tilesX; x++){
@@ -150,6 +179,9 @@ public class GameController : MonoBehaviour {
 			}
 		}
 	}
+	/// <summary>
+	/// Creates visualers for all blocks in the instantiated level
+	/// </summary>	
 	public void DrawContents(){
 		Block[,] LEVEL = lc.GetLevel();
 		for(int x=0; x<tilesX; x++){
@@ -159,27 +191,44 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Saves the given level, using the levels name as filename
+	/// </summary>	
 	public void SaveLevel(Level level){
 		SaveLoadManager.SaveLevel (level);
 	}
+	/// <summary>
+	/// Saves the loaded level, using the levels name as filename
+	/// </summary>	
 	public void SaveLevel(){
 		SaveLoadManager.SaveLevel (level);
 	}
 
+	/// <summary>
+	/// Goes to the Start Menu scene (Main Menu)
+	/// </summary>	
 	public void GoToMainMenu(int menuIndex){
 		MainMenuManager.activeMenu = (MainMenuManager.Panel)menuIndex;
 		Application.LoadLevel (0);
 	}
 
+	/// <summary>
+	/// Goes to the next level (ordered by filename)
+	/// </summary>	
 	public void NextLevel(){
 		MainMenuManager.LoadNextLevel ();
 	}
+	/// <summary>
+	/// Loads the level again, resulting in a restart
+	/// </summary>	
 	public void RestartLevel(){
 		LoadLevel (level);
 		winPanel.SetActive (false);
 	}
-	
-	// Update is called once per frame
+
+	/// <summary>
+	/// If the game is not paused, checks if the character is in a winning position, and handles win.
+	/// </summary>	
 	void Update () {
 		if (!paused) {
 			CheckIfWinning ();
