@@ -12,6 +12,10 @@ public class Block {
 	public Block(BlockType type){
 		this.type = type;
 	}
+	public Block(Block source){
+		visualiser = source.visualiser;
+		type = source.type;
+	}
 
 	/// <summary>
 	/// Gets an array containing an instance of each block type

@@ -10,8 +10,38 @@ public class LevelController {
 	private Block[,] LEVEL, INITIAL_LEVEL;
 	private List<Point> PLAYER_POS, GOAL_POS, INITIAL_PLAYER_POS;
 
-	public void restartMap(){
-		Application.LoadLevel (1);
+	
+	private struct Move {
+		public List<Point> PLAYER_POS_LAST;
+		public Block[,] LastLevelData;
+		
+		/// <summary>
+		/// Sets the level data.
+		/// </summary>
+		/// <param name="data">Data.</param>
+		/// <param name="playerPositions">Player positions.</param>
+		public void SetLevelData(Block[,] data, List<Point> playerPositions){
+			PLAYER_POS_LAST = new List<Point> ();
+			foreach (Point point in playerPositions) {
+				PLAYER_POS_LAST.Add(new Point(point.x, point.y));
+			}
+			LastLevelData = new Block[data.GetLength(0), data.GetLength (1)];
+			for(int x = 0; x < data.GetLength(0); x++){
+				for(int y = 0; y < data.GetLength(1); y++){
+					LastLevelData[x,y] = new Block(data[x,y]);
+				}
+			}
+		}
+	}
+	private Move lastMove;
+	
+	public void UndoLastMove(){
+		PLAYER_POS = lastMove.PLAYER_POS_LAST;
+		for (int x = 0; x < LEVEL.GetLength(0); x++) {
+			for(int y = 0; y < LEVEL.GetLength(1); y++){
+				SetBlock(x, y, lastMove.LastLevelData[x,y].getType());
+			}
+		}
 	}
 
 	/// <summary>
@@ -124,6 +154,8 @@ public class LevelController {
 		AddPlayerPosition(x,y);
 	}
 
+
+
 	/// <summary>
 	/// Attempts to move the player in a relative direction. If the path is obstructed, the player will not move. 	
 	/// </summary>
@@ -137,7 +169,9 @@ public class LevelController {
 				return false;
 			}
 		}
-		
+		lastMove = new Move ();
+		lastMove.SetLevelData (LEVEL, PLAYER_POS);
+
 		PLAYER_POS.Clear ();
 
 		//If all blocks can move, then move all player blocks
@@ -157,7 +191,7 @@ public class LevelController {
 
 		//Then fill in all the new player blocks
 		foreach (Point p in q) {
-
+			//If the block it is moved to is a hazard, don't do anything.
 			if(IsBlock(p.x+dx,p.y+dy,Block.BlockType.hazard))continue;
 
 			//If it's the playerPoint, paint its next point as the player
@@ -167,7 +201,7 @@ public class LevelController {
 				SetBlock(p.x+dx,p.y+dy,Block.BlockType.appendage);
 			}
 
-			//If it doesn't contains this point, add it to the player positions
+			//If it doesn't contain this point, add it to the player positions
 			Point x = new Point(p.x+dx,p.y+dy);
 			AddPlayerPosition(x);
 

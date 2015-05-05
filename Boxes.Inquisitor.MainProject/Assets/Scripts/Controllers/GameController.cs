@@ -75,7 +75,6 @@ public class GameController : MonoBehaviour {
 		score.UpdateScore ();
 		winPanel.SetActive (false);
 		handleWin = Win;
-		AudioController ac = new AudioController ();
 	}
 
 	
@@ -149,6 +148,15 @@ public class GameController : MonoBehaviour {
 		}
 		level = new Level (newLevel, "test level");
 		LoadLevel (level);
+	}
+
+	/// <summary>
+	/// Undoes the last move.
+	/// </summary>
+	public void UndoLastMove(){
+		lc.UndoLastMove ();
+		movesThisAttempt--;
+		score.UpdateScore ();
 	}
 
 	/// <summary>

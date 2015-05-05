@@ -8,6 +8,7 @@ public class KeyBoardController : MonoBehaviour {
 	public KeyCode left = KeyCode.LeftArrow;
 	public KeyCode right = KeyCode.RightArrow;
 	public KeyCode r = KeyCode.R;
+	public KeyCode undo = KeyCode.Z;
 	public GameController gc;	
 
 	public float holdTimeForExtraMove = 0.1f;
@@ -46,6 +47,9 @@ public class KeyBoardController : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (r)) {	
 			gc.restartMap();
+		}
+		if (Input.GetKeyDown (undo)) {
+			gc.UndoLastMove();
 		}
 
 		if (hasMoved) {
