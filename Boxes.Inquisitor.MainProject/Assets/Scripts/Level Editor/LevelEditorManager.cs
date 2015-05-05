@@ -16,6 +16,7 @@ public class LevelEditorManager : MonoBehaviour {
 	public string usedExtensionForSaves = ".txt";
 	public GameController gc;
 	public ButtonManager buttonPrefab;
+	public Button redoButton;
 
 	public static bool isTestingCreatorsAbilities = false;
 	public static Block.BlockType currentType;
@@ -52,8 +53,14 @@ public class LevelEditorManager : MonoBehaviour {
 				Redo();
 			}
 		//}
+		if (undoneMoves.Count <= 0) {
+			redoButton.gameObject.SetActive(false);
+		}
 	}
 
+	/// <summary>
+	/// Undes the last move.
+	/// </summary>
 	public void UndoLastMove(){
 		if (moves.Count > 0) {
 			Move lastMove = (Move)moves.Pop ();
@@ -61,8 +68,12 @@ public class LevelEditorManager : MonoBehaviour {
 			int y = lastMove.y;
 			undoneMoves.Push (new Move (gc.LevelData [x, y].getType (), x, y));
 			gc.LevelData [lastMove.x, lastMove.y].SetType (lastMove.changedFrom);
+			redoButton.gameObject.SetActive(true);
 		}
 	}
+	/// <summary>
+	/// Redoes the last move.
+	/// </summary>
 	public void Redo(){
 		if (undoneMoves.Count > 0) {
 			Move undoneMove = (Move)undoneMoves.Pop ();

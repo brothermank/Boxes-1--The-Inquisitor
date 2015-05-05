@@ -18,9 +18,9 @@ public class BlockVisualManager : MonoBehaviour {
 		if (Input.GetMouseButton (0) && !EventSystem.current.IsPointerOverGameObject(-1) && !LevelEditorManager.isTestingCreatorsAbilities) {
 			try{
 				if(LevelEditorManager.currentType != block.getType()){
-				LevelEditorManager.moves.Push(new LevelEditorManager.Move(block.getType(), posx, posy));
-				LevelEditorManager.undoneMoves = new Stack();
-				block.SetType (LevelEditorManager.currentType);
+					LevelEditorManager.moves.Push(new LevelEditorManager.Move(block.getType(), posx, posy));
+					LevelEditorManager.undoneMoves = new Stack();
+					block.SetType (LevelEditorManager.currentType);
 				}
 			}catch(NullReferenceException e){
 				return;
