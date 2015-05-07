@@ -271,12 +271,16 @@ public class LevelController {
 		LEVEL [x, y].SetType (b);
 	}
 
-	private Block.BlockType GetBlock(int x, int y){
-		return LEVEL [x, y].getType();
+	private Block GetBlock(int x, int y){
+		return LEVEL [x, y];
 	}
 
 	private bool IsBlock(int x, int y, Block.BlockType b){
-		return GetBlock (x, y) == b;
+		if ((b == Block.BlockType.goal) && GetBlock (x, y).isAlsoGoal) {
+			Debug.Log("looking for goal, and is also goal");
+			return true;
+		}
+		return GetBlock (x, y).getType() == b;
 	}
 
 	//Checks if a certain [x,y] can be moved unto by the player

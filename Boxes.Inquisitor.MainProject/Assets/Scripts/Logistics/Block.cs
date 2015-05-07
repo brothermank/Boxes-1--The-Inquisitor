@@ -6,15 +6,32 @@ public class Block {
 	private SpriteRenderer visualiser;
 	private static SpriteRenderer visualiserPrefab = (Resources.Load ("Prefabs/Block Visual") as GameObject).GetComponent<SpriteRenderer> ();
 	public enum BlockType{background, player, collectible, solid, goal, appendage, hazard};
+	public enum SpecialCondition{isAlsoGoal};
 	private BlockType type;
 	private static Transform parent;
+	public bool isAlsoGoal = false;
 
 	public Block(BlockType type){
 		this.type = type;
 	}
 	public Block(Block source){
 		visualiser = source.visualiser;
+		isAlsoGoal = source.isAlsoGoal;
 		type = source.type;
+	}
+
+	/// <summary>
+	/// Sets a special condition.
+	/// </summary>
+	/// <param name="condition">Condition.</param>
+	public void SetSpecialCondition(SpecialCondition condition){
+		switch (condition) {
+		case SpecialCondition.isAlsoGoal:
+			isAlsoGoal = true;
+			break;
+		default:
+			break;
+		}
 	}
 
 	/// <summary>
@@ -94,8 +111,13 @@ public class Block {
 	/// Sets the type of the block, and updates it's display (if any) to reflect the new type
 	/// </summary>
 	public void SetType(BlockType newType){
-		Debug.Log ("newType="+newType);
-		Debug.Log ("vis="+visualiser.ToString());
+		if (isAlsoGoal && newType == BlockType.background) {
+			type = BlockType.goal;
+			if(visualiser != null){
+				visualiser.sprite = GetSprite(BlockType.goal);
+			}
+			return;
+		}
 		type = newType;
 		if(visualiser != null){
 			visualiser.sprite = GetSprite(type);

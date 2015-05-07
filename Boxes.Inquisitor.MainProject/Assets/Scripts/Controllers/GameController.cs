@@ -93,15 +93,18 @@ public class GameController : MonoBehaviour {
 		} else {
 			level = SaveLoadManager.LoadLevel (LevelString);
 		}
-
 		
 		tilesX = OriginalLevelData.GetLength (0);
 		tilesY = OriginalLevelData.GetLength (1);
 		LevelData = new Block[tilesX, tilesY];
 		for (int x = 0; x < tilesX; x++) {
 			for(int y = 0; y < tilesY; y++){
-				LevelData[x,y] = new Block(OriginalLevelData[x,y].getType());
+				LevelData[x,y] = new Block(OriginalLevelData[x,y]);
 			}
+		}
+		Debug.Log (level.LevelData.Length);
+		foreach (Block block in LevelData) {
+			Debug.Log(block.isAlsoGoal);
 		}
 		lc = new LevelController (LevelData);
 		DrawContents ();
@@ -126,7 +129,7 @@ public class GameController : MonoBehaviour {
 		LevelData = new Block[tilesX, tilesY];
 		for (int x = 0; x < tilesX; x++) {
 			for(int y = 0; y < tilesY; y++){
-				LevelData[x,y] = new Block(OriginalLevelData[x,y].getType());
+				LevelData[x,y] = new Block(OriginalLevelData[x,y]);
 			}
 		}
 		lc = new LevelController (LevelData);
