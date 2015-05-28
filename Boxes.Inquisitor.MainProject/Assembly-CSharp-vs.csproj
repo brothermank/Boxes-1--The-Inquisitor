@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\Scripts\Controllers\KeyBoardController.cs" />
      <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\LevelTester.cs" />
      <Compile Include="Assets\Scripts\Controllers\SwipeControls.cs" />
      <Compile Include="Assets\Scripts\InputFiledTabManager.cs" />
      <Compile Include="Assets\Scripts\Level Editor\BlockVisualManager.cs" />
