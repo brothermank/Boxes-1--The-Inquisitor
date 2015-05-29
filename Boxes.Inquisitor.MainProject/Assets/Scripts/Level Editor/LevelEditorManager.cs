@@ -9,6 +9,8 @@ public class LevelEditorManager : MonoBehaviour {
 	public GameObject savePanel;
 	public GameObject overwriteWarningPanel;
 	public GameObject createNewLevelPanel;
+	public GameObject testLevelButton;
+	public GameObject cancelTestLevelButton;
 	public InputField widthInput;
 	public InputField heightInput;
 	public InputField saveName;
@@ -42,7 +44,7 @@ public class LevelEditorManager : MonoBehaviour {
 		foreach (Block.BlockType blockType in allBlockTypes) {
 			CreateNewBlockButton(blockType);
 		}
-		gc.handleWin = WinTestLevel;
+		gc.handleWin = StopTestLevel;
 	}
 	void Update(){
 		//if(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)){
@@ -87,18 +89,31 @@ public class LevelEditorManager : MonoBehaviour {
 	/// Starts the level in the GameController as test map and sets the handleWin method to WinTestLevel
 	/// </summary>	
 	public void TestLevel(){
-		gc.handleWin = WinTestLevel;
+		testLevelButton.SetActive (false);
+		cancelTestLevelButton.GetComponent<ButtonManager> ().text.text = "Cancel Test";
+		cancelTestLevelButton.SetActive (true);
+
+		gc.handleWin = StopTestLevel;
+		try{
 		gc.StartTestMap ();
+		} catch(System.NullReferenceException){
+			StopTestLevel(gc);
+		}
 	}
 
 	/// <summary>
 	/// Handles the win without saving score, and loads the tested level (reverting moves made during the test)
 	/// </summary>	
-	public void WinTestLevel(GameController gc){
-		gc.paused = true;
-		gc.level.playersBestScore = -1;
-		gc.level.creatorsBestScore = -1;
-		gc.LoadLevel(gc.level);
+	public void StopTestLevel(GameController gc){
+		try{
+			gc.paused = true;
+			gc.level.playersBestScore = -1;
+			gc.level.creatorsBestScore = -1;
+			gc.LoadLevel(gc.level);
+		} catch(System.NullReferenceException){}
+		CancelSave ();
+		testLevelButton.SetActive (true);
+		cancelTestLevelButton.SetActive (false);
 	}
 	/// <summary>
 	/// Handles the win, saving score as Creators Best. Loaded again to revert moves, and then saved.
@@ -109,7 +124,7 @@ public class LevelEditorManager : MonoBehaviour {
 		gc.level.creatorsBestScore = gc.movesThisAttempt;
 		gc.LoadLevel (gc.level);
 		gc.SaveLevel (gc.level);
-		gc.handleWin = WinTestLevel;
+		gc.handleWin = StopTestLevel;
 		CancelSave ();
 	}
 
@@ -135,6 +150,9 @@ public class LevelEditorManager : MonoBehaviour {
 	/// Opens the save panel
 	/// </summary>	
 	public void StartSaveProcess(){
+		testLevelButton.SetActive (false);
+		cancelTestLevelButton.GetComponent<ButtonManager> ().text.text = "Cancel Save";
+		cancelTestLevelButton.SetActive (true);
 		savePanel.SetActive (true);
 		createNewLevelPanel.SetActive (false);
 		overwriteWarningPanel.SetActive (false);
