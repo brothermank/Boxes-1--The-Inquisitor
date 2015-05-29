@@ -130,9 +130,7 @@ public class LevelController {
 		//But if all goals have had partners, and there are as many goal blocks as player blocks, then the player has won.
 		return true;
 	}
-	private void Win(){
-		
-	}
+
 
 	private void setGoalBlocksBack(){
 		foreach (Point goal in GOAL_POS) {
@@ -264,6 +262,9 @@ public class LevelController {
 			AddPlayerAtPosition(x,y+1,true);
 			b=true;
 		}
+
+		if(b)
+			GameController.playSound("pop");
 		
 		return b;
 	}
@@ -278,7 +279,6 @@ public class LevelController {
 
 	private bool IsBlock(int x, int y, Block.BlockType b){
 		if ((b == Block.BlockType.goal) && GetBlock (x, y).isAlsoGoal) {
-			Debug.Log("looking for goal, and is also goal");
 			return true;
 		}
 		return GetBlock (x, y).getType() == b;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 
-public class AudioController {
+public class AudioController : MonoBehaviour {
 
 	private AudioSource src;
 	private Dictionary<string, AudioClip> audio;
@@ -26,20 +26,14 @@ public class AudioController {
 	}
 
 	private void playSound(string snd, float pitch){
-		Debug.Log ("1");
 		AudioClip a = null;
-		Debug.Log ("2");
 		if (!audio.TryGetValue (snd, out a)) {
 			Debug.LogError("No such sound clip '"+snd+"'.");
 			return;
 		}
-		if (a == null)
-			Debug.Log ("wtf");
 
 		src.pitch = pitch;
-		Debug.Log ("5");
 		src.PlayOneShot (a, 1.0f);
-		Debug.Log ("6");
 	}
 
 	public void playSoundNormal(string snd){
@@ -47,10 +41,12 @@ public class AudioController {
 	}
 	
 	public void playSoundRandom(string snd){
-		playSound (snd, nextGaussian(1.0,0.5));
+		playSound (snd, nextGaussian(1.0,0.3));
 	}
 
-	public AudioController(AudioSource source){
+	void Start(){
+
+		AudioSource source = Camera.main.GetComponent<AudioSource>();
 
 		audio = new Dictionary<string, AudioClip> ();
 
