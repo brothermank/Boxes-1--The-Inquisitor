@@ -53,7 +53,7 @@ public class LevelTester {
 		List<LevelController> perms = getPermutations (data);
 
 		for (int i=0; i<100000; i++) {
-		
+			
 		}
 		Debug.LogError ("Command timed out: isPlayable();");
 		return false;
