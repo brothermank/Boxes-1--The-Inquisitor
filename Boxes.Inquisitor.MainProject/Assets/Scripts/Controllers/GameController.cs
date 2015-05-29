@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
+	public static GameController MainGC;
+
 	public enum Direction{left, right, up, down};
 
 	public delegate void ActionOnWin(GameController gc);
@@ -25,6 +27,15 @@ public class GameController : MonoBehaviour {
 	public ScoreDisplayer score;
 	public GameObject winPanel;
 	public bool paused = false;
+
+	// Use this for initialization
+	void Start () {
+		LoadLevel ();
+		score.UpdateScore ();
+		winPanel.SetActive (false);
+		handleWin = Win;
+		MainGC = this;
+	}
 
 	/// <summary>
 	/// Returns whether it is tru that the player has won, and if it is true, also handles the win. (handleWin())
@@ -69,13 +80,7 @@ public class GameController : MonoBehaviour {
 		paused = false;
 	}
 
-	// Use this for initialization
-	void Start () {
-		LoadLevel ();
-		score.UpdateScore ();
-		winPanel.SetActive (false);
-		handleWin = Win;
-	}
+
 
 	
 	/// <summary>

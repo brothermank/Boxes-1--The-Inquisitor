@@ -5,8 +5,8 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 	
 	Camera controlledCam;
-	public float zoomSpeed = 4;
-	public float baseMoveSpeed = 0.515f;
+	public float zoomSpeed = 7;
+	public float baseMoveSpeed = 0.045f;
 	float actualMoveSpeed{
 		get{
 			return baseMoveSpeed * Camera.main.orthographicSize;
@@ -32,19 +32,27 @@ public class CameraController : MonoBehaviour {
 				controlledCam.orthographicSize = 1;
 			}
 		} 
-		
+		//movement
 		if (Input.GetKey (KeyCode.W)) {
 			Camera.main.transform.position = Vector3.Lerp (transform.position, transform.position + Vector3.up, actualMoveSpeed);
 		} 
-		else if (Input.GetKey (KeyCode.S)) {
+		if (Input.GetKey (KeyCode.S)) {
 			Camera.main.transform.position = Vector3.Lerp (transform.position, transform.position + Vector3.down, actualMoveSpeed);
 		} 
-		else if (Input.GetKey (KeyCode.A)) {
+		if (Input.GetKey (KeyCode.A)) {
 			Camera.main.transform.position = Vector3.Lerp (transform.position, transform.position + Vector3.left, actualMoveSpeed);
 		} 
-		else if (Input.GetKey (KeyCode.D)) {
+		if (Input.GetKey (KeyCode.D)) {
 			Camera.main.transform.position = Vector3.Lerp (transform.position, transform.position + Vector3.right, actualMoveSpeed);
-		} 
+		}
+		//Reset to original
+		if (Input.GetKey (KeyCode.Space)) {
+			float tilesX = (float) GameController.MainGC.OriginalLevelData.GetLength(0);
+			float tilesY = (float) GameController.MainGC.OriginalLevelData.GetLength(1);
+			Camera.main.transform.position = new Vector3 (tilesX/2f - 0.5f, tilesY/2f - 0.5f, -1.5f);
+			CameraController.ResizeMainCamTo ((int)tilesX, (int)tilesY);
+			Camera.main.orthographicSize = 5;
+		}
 	}
 
 	/// <summary>

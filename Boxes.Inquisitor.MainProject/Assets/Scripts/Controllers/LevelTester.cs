@@ -28,7 +28,7 @@ public class LevelTester {
 			//Attempt to move left
 			if (l.MoveRelatively (-1, 0))
 				//If possible, add it to the list of permutations
-			perms.Add (l.GetLevel ());
+			perms.Add (l);
 
 		//--------UP
 			LevelController u = new LevelController (state);
@@ -36,7 +36,7 @@ public class LevelTester {
 			//Attempt to move up
 			if (u.MoveRelatively (0, -1))
 				//If possible, add it to the list of permutations
-				perms.Add (u.GetLevel ());
+				perms.Add (u);
 		
 		//--------DOWN
 			LevelController d = new LevelController (state);
@@ -44,7 +44,7 @@ public class LevelTester {
 			//Attempt to move up
 			if (d.MoveRelatively (0, 1))
 				//If possible, add it to the list of permutations
-				perms.Add (d.GetLevel ());
+				perms.Add (d);
 
 		return perms;
 	}
