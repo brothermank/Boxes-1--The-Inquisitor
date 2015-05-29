@@ -7,6 +7,7 @@ public class LevelController {
 
 	public int tilesX, tilesY;
 
+	private bool simulation;
 	private Block[,] LEVEL, INITIAL_LEVEL;
 	private List<Point> PLAYER_POS, GOAL_POS;
 	
@@ -80,6 +81,11 @@ public class LevelController {
 		FindGoalPositions ();
 
 		Array.Copy (LEVEL, INITIAL_LEVEL, tilesX*tilesY);
+		simulation = false;
+	}
+
+	public void setSimulation(bool b){
+		simulation = b;
 	}
 
 	/// <summary>
@@ -296,7 +302,7 @@ public class LevelController {
 			b=true;
 		}
 
-		if(b)
+		if(b && !simulation)
 			GameController.playSound("pop");
 		
 		return b;

@@ -19,28 +19,20 @@ public class GenerateTexture : MonoBehaviour {
 		switch (blockType) {
 		case Block.BlockType.appendage:
 			return PalleteType.green;
-			break;
 		case Block.BlockType.background:
 			return PalleteType.sand;
-			break;
 		case Block.BlockType.collectible:
 			return PalleteType.blue;
-			break;
 		case Block.BlockType.goal:
 			return PalleteType.teal;
-			break;
 		case Block.BlockType.hazard:
 			return PalleteType.red;
-			break;
 		case Block.BlockType.player:
 			return PalleteType.green;
-			break;
 		case Block.BlockType.solid:
 			return PalleteType.grey;
-			break;
 		default:
 			return PalleteType.sand;
-			break;
 		}
 	}
 	public static Color[] GetAvailableColors(PalleteType pallete){
@@ -111,7 +103,6 @@ public class GenerateTexture : MonoBehaviour {
 		}
 		texture.Apply ();
 		return texture;
-		Debug.Log ("Created Texture");
 	}
 	public static Texture2D CreateRandomTexture(PalleteType pallete, int sizex, int sizey){
 		Color[] colors = GetAvailableColors (pallete);
@@ -132,7 +123,6 @@ public class GenerateTexture : MonoBehaviour {
 		}
 		texture.Apply ();
 		return texture;
-		Debug.Log ("Created Texture");
 	}
 	public static Texture2D ProgressTexture(Texture2D source, bool dontTakeOver, Color[] pallette){
 		int width = source.width;

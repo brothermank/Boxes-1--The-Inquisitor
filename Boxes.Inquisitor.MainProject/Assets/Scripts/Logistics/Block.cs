@@ -79,33 +79,6 @@ public class Block {
 	/// Gets the sprite used for the given type
 	/// </summary>	
 	public static Sprite GetSprite(BlockType type){
-		string basePath = "Art/Blocks/";
-		string objectName = "";
-		switch (type) {
-		case BlockType.background:
-			objectName = "Background";
-			break;
-		case BlockType.player:
-			objectName = "Player";
-			break;
-		case BlockType.collectible:
-			objectName = "Collectible";
-			break;
-		case BlockType.solid:
-			objectName = "Solid";
-			break;
-		case BlockType.goal:
-			objectName = "Goal";
-			break;
-		case BlockType.appendage:
-			objectName = "Appendage";
-			break;
-		case BlockType.hazard:
-			objectName = "Hazard";
-			break;
-		default:
-			return null;
-		}
 		Texture2D texture =  GenerateTexture.CreateRandomTexture(GenerateTexture.GetAvailableColors(GenerateTexture.GetPallete(type)), 10, 10);
 		return Sprite.Create (texture, new Rect (0, 0, texture.width, texture.height), new Vector2 (0.5f, 0.5f), Mathf.Max(new int[2]{texture.height, texture.width}));
 	}

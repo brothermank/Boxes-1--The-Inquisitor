@@ -7,7 +7,7 @@ using System;
 public class AudioController : MonoBehaviour {
 
 	private AudioSource src;
-	private Dictionary<string, AudioClip> audio;
+	private Dictionary<string, AudioClip> aud;
 
 	private double nextRandom(){
 		return UnityEngine.Random.Range (0f, 1f);
@@ -27,7 +27,7 @@ public class AudioController : MonoBehaviour {
 
 	private void playSound(string snd, float pitch){
 		AudioClip a = null;
-		if (!audio.TryGetValue (snd, out a)) {
+		if (!aud.TryGetValue (snd, out a)) {
 			Debug.LogError("No such sound clip '"+snd+"'.");
 			return;
 		}
@@ -48,7 +48,7 @@ public class AudioController : MonoBehaviour {
 
 		AudioSource source = Camera.main.GetComponent<AudioSource>();
 
-		audio = new Dictionary<string, AudioClip> ();
+		aud = new Dictionary<string, AudioClip> ();
 
 		//Loading all resources, and adding them to the Dictionary
 		DirectoryInfo info = new DirectoryInfo (Application.dataPath + "/Resources/Sounds/");
@@ -61,7 +61,7 @@ public class AudioController : MonoBehaviour {
 
 			AudioClip newAudio = (AudioClip)Resources.Load("Sounds/"+filename, typeof(AudioClip));
 
-			audio.Add(filename, newAudio);
+			aud.Add(filename, newAudio);
 		}
 
 		src = source;

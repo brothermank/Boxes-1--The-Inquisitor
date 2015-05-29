@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class LevelTester {
 
-	private Block[,] data;
+	//private Block[,] data;
 
 	public LevelTester(Block[,] levelData){
-		data = levelData;
+		//data = levelData;
 	}
 
 	private static List<LevelController> getPermutations(Block[,] state){
@@ -50,7 +50,6 @@ public class LevelTester {
 	}
 
 	public bool isPlayable(){
-		List<LevelController> perms = getPermutations (data);
 
 		for (int i=0; i<100000; i++) {
 			

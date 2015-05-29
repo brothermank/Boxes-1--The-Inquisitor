@@ -13,6 +13,7 @@ public class LevelGenerator {
 		                  initial.GetLength(1)];
 		Array.Copy(initial, start, initial.Length);
 		lc = new LevelController (initial);
+		lc.setSimulation (true);
 
 	}
 
@@ -43,6 +44,7 @@ public class LevelGenerator {
 		List<Point> player = lc.getPlayerPositions ();
 		Debug.Log ("|p|="+player.Count);
 		foreach(Point p in player){
+			Debug.Log (p.x+"-"+p.y);
 			start[p.x,p.y].isAlsoGoal = true;
 		}
 	}

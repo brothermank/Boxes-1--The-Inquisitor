@@ -22,7 +22,6 @@ public class SaveLoadManager {
 		file = new System.IO.StreamReader (Application.dataPath + "/Maps/" + fileName);
 		string line;
 		line = sanitizeString(file.ReadLine ());
-		char[] chars = line.ToCharArray ();
 		int y = 0;
 		bool fileCorrupted = false;
 		bool highscoresMissing = false;
@@ -58,14 +57,11 @@ public class SaveLoadManager {
 			return null;
 		}
 		Block[,] blockA = new Block[expectedWidth, expectedHeight];
-		int xa = 0;
 		int ya = 0;
 		foreach (List<Block> list in blocks) {
-			foreach(Block block in list){
+			for(int xa=0; xa<list.Count; xa++){
 				blockA[xa,ya] = blocks[expectedHeight - ya - 1][xa];
-				xa++;
 			}
-			xa = 0;
 			ya++;
 		}
 		Level level;

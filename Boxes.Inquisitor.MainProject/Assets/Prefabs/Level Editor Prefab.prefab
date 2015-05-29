@@ -181,7 +181,6 @@ GameObject:
   - 224: {fileID: 22461120}
   - 222: {fileID: 22251996}
   - 114: {fileID: 11495776}
-  - 114: {fileID: 11464800}
   m_Layer: 5
   m_Name: MapEditorPanel
   m_TagString: Untagged
@@ -669,18 +668,6 @@ MonoBehaviour:
   m_Spacing: {x: 6, y: 5}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &11464800
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 168414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 999b7056ae9672f4aa13706b6378ea97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonPrefab: {fileID: 153250, guid: 6a846a2034ffb484496f73f5d8c342ee, type: 2}
 --- !u!114 &11470682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -783,7 +770,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11464800}
+      - m_Target: {fileID: 0}
         m_MethodName: SaveMap
         m_Mode: 5
         m_Arguments:
