@@ -31,12 +31,20 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		LoadLevel ();
+		MainGC = this;
 		score.UpdateScore ();
-		winPanel.SetActive (false);
 		handleWin = Win;
+<<<<<<< HEAD
 		MainGC = this;
 		audio = new AudioController (Camera.main.GetComponent<AudioSource> ());
+=======
+		try{
+			LoadLevel ();
+		}catch(System.UnauthorizedAccessException){}
+		try{
+			winPanel.SetActive (false);
+		}catch(UnassignedReferenceException){}
+>>>>>>> 4557504690b997d013388454182284ce44e524b1
 	}
 
 	/// <summary>
