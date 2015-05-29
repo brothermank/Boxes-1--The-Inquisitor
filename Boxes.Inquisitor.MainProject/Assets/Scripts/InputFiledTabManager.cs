@@ -11,7 +11,6 @@ public class InputFiledTabManager : MonoBehaviour {
 
 	void Start(){
 		inputFields = GetComponentsInChildren<InputField> ();
-		Debug.Log(inputFields.Length);
 	}
 
 	// Update is called once per frame

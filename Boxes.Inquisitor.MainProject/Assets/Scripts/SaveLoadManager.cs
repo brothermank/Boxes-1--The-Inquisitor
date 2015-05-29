@@ -4,10 +4,7 @@ using System.Collections.Generic;
 
 public class SaveLoadManager {
 
-	
-	/// <summary>
-	/// Loads a two dimensional block array from a file
-	/// </summary>
+
 
 	private static string sanitizeString(string s){
 		if (s == null)
@@ -15,8 +12,11 @@ public class SaveLoadManager {
 		return s.Replace(".","0").Replace("X","1").Replace("O","2").Replace("M","3").Replace("S","3").Replace("G","4").Replace("H","6");
 	}
 
+	
+	/// <summary>
+	/// Loads a two dimensional block array from a file
+	/// </summary>
 	public static Level LoadLevel(string fileName){
-		Debug.Log ("loading level");
 		List<List<Block>> blocks = new List<List<Block>> ();
 		System.IO.StreamReader file;
 		file = new System.IO.StreamReader (Application.dataPath + "/Maps/" + fileName);
@@ -31,7 +31,7 @@ public class SaveLoadManager {
 		List<int> intsInFirstLine = getIntsInString (line);
 		List<Block> blocksInLine;
 		if (intsInFirstLine.Count < 3) {
-			Debug.Log("Missing highscore information. Highscores set to -1. When trying too load: " + fileName);
+			Debug.Log("Missing highscore information. Highscores set to -1. When trying to load: " + fileName);
 			highscoresMissing = true;
 		}
 		int expectedWidth = intsInFirstLine [0];

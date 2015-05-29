@@ -9,9 +9,16 @@ public class LevelGenerator {
 	private Block[,] start;
 
 	public LevelGenerator(Block[,] initial){
-		start = (Block[,])initial.Clone ();
+		start = new Block[initial.GetLength(0),
+		                  initial.GetLength(1)];
+		Array.Copy(initial, start, initial.Length);
 		lc = new LevelController (initial);
 
+	}
+
+	public static LevelGenerator getGenerator(String filename){
+		Block[,] data = SaveLoadManager.LoadLevel (filename).LevelData;
+		return new LevelGenerator (data);
 	}
 
 	public Block[,] getContents(){
@@ -34,6 +41,7 @@ public class LevelGenerator {
 
 		//Set goals in the original level where the player is now
 		List<Point> player = lc.getPlayerPositions ();
+		Debug.Log ("|p|="+player.Count);
 		foreach(Point p in player){
 			start[p.x,p.y].isAlsoGoal = true;
 		}

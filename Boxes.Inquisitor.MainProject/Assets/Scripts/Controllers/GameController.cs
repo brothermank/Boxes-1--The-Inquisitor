@@ -30,6 +30,11 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		LevelGenerator lg = LevelGenerator.getGenerator ("testLevel.txt");
+		lg.process ();
+		SaveLoadManager.SaveLevel (new Level (lg.getContents (), "newTest123"));
+
 		MainGC = this;
 		score.UpdateScore ();
 		handleWin = Win;
