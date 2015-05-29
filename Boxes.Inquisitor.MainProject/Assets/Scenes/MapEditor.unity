@@ -1501,6 +1501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e937a548350c1c4484aab5196995f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canPan: 0
   zoomSpeed: 4
   baseMoveSpeed: .0450000018
 --- !u!1 &673771093
@@ -3144,7 +3145,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1458313037}
---- !u!114 &1540053035 stripped
+--- !u!114 &1540053035
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11437964, guid: b4277a8a4de39734db3816f3455db8ec,
     type: 2}
