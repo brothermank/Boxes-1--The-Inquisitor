@@ -8,6 +8,7 @@ public class RandomlyTexturedObjectController : MonoBehaviour{
 	protected int updatesSinceLastCleanup = 0;
 	protected int requiredUpdatesSinceLastMove = 3;
 	protected int requiredUpdatesSinceLastCleanup = 45;
+	private int textureSize = 10;
 	private GenerateTexture.PalleteType color = GenerateTexture.PalleteType.green;
 	private Color[] palleteColors;
 
@@ -23,7 +24,7 @@ public class RandomlyTexturedObjectController : MonoBehaviour{
 	public void SetColor(GenerateTexture.PalleteType color){
 		this.color = color;
 		palleteColors = GenerateTexture.GetAvailableColors (color);
-		render.sprite.texture.SetPixels(GenerateTexture.CreateRandomTexture (palleteColors, 10, 10).GetPixels());
+		render.sprite.texture.SetPixels(GenerateTexture.CreateRandomTexture (palleteColors, textureSize, textureSize).GetPixels());
 		render.sprite.texture.Apply ();
 		if (color == GenerateTexture.PalleteType.sand || color == GenerateTexture.PalleteType.grey) {
 			flowingTexture = false;
@@ -43,7 +44,7 @@ public class RandomlyTexturedObjectController : MonoBehaviour{
 	public void Initialize () {
 		palleteColors = GenerateTexture.GetAvailableColors (color);
 		render = gameObject.GetComponent<SpriteRenderer> ();
-		Texture2D texture = GenerateTexture.CreateRandomTexture (palleteColors, 10, 10);
+		Texture2D texture = GenerateTexture.CreateRandomTexture (palleteColors, textureSize, textureSize);
 
 		render.sprite = Sprite.Create (texture, new Rect (0, 1, texture.width, texture.height), new Vector2 (0.5f, 0.5f), Mathf.Max (new int[2] {
 			texture.width,

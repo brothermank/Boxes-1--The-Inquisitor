@@ -141,7 +141,7 @@ public class Block {
 	/// </summary>
 	public void RemoveObjectDisplay(){
 		if (visualiser != null) {
-			MonoBehaviour.Destroy(visualiser);
+			MonoBehaviour.Destroy(visualiser.gameObject);
 			visualiser = null;
 		}
 	}

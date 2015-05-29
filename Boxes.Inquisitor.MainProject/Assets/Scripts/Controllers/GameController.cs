@@ -256,8 +256,14 @@ public class GameController : MonoBehaviour {
 	/// Loads the level again, resulting in a restart
 	/// </summary>	
 	public void RestartLevel(){
+		DestroyLevel ();
 		LoadLevel (level);
 		winPanel.SetActive (false);
+	}
+	private void DestroyLevel(){
+		foreach (Block block in lc.GetLevel()) {
+			block.RemoveObjectDisplay();
+		}
 	}
 
 	/// <summary>
