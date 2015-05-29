@@ -9,7 +9,6 @@ public class LevelController {
 
 	private Block[,] LEVEL, INITIAL_LEVEL;
 	private List<Point> PLAYER_POS, GOAL_POS, INITIAL_PLAYER_POS;
-
 	
 	private struct Move {
 		public List<Point> PLAYER_POS_LAST;
@@ -68,6 +67,8 @@ public class LevelController {
 		FindPlayerPositions ();
 		FindGoalPositions ();
 		Debug.Log (PLAYER_POS.Count);
+
+
 
 		INITIAL_PLAYER_POS = new List<Point> (PLAYER_POS);
 		Array.Copy (LEVEL, INITIAL_LEVEL, tilesX*tilesY);
@@ -129,9 +130,7 @@ public class LevelController {
 		//But if all goals have had partners, and there are as many goal blocks as player blocks, then the player has won.
 		return true;
 	}
-	private void Win(){
-		
-	}
+
 
 	private void setGoalBlocksBack(){
 		foreach (Point goal in GOAL_POS) {
@@ -263,6 +262,9 @@ public class LevelController {
 			AddPlayerAtPosition(x,y+1,true);
 			b=true;
 		}
+
+		if(b)
+			GameController.playSound("pop");
 		
 		return b;
 	}
@@ -277,7 +279,6 @@ public class LevelController {
 
 	private bool IsBlock(int x, int y, Block.BlockType b){
 		if ((b == Block.BlockType.goal) && GetBlock (x, y).isAlsoGoal) {
-			Debug.Log("looking for goal, and is also goal");
 			return true;
 		}
 		return GetBlock (x, y).getType() == b;

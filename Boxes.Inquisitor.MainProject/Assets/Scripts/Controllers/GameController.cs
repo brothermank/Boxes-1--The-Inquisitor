@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour {
 		MainGC = this;
 		score.UpdateScore ();
 		handleWin = Win;
+		MainGC = this;
 		try{
 			LoadLevel ();
 		}catch(System.UnauthorizedAccessException){}
@@ -58,6 +59,7 @@ public class GameController : MonoBehaviour {
 		gc.SaveLevel ();*/
 		gc.paused = true;
 		gc.winPanel.SetActive (true);
+		playSoundNormal ("fanfare");
 	}
 	/// <summary>
 	/// Loads the level again to achieve a restart of the level.
@@ -160,6 +162,16 @@ public class GameController : MonoBehaviour {
 		LoadLevel (level);
 	}
 
+	public static void playSound(string snd){
+		AudioController ac = Camera.main.GetComponent<AudioController> ();
+		ac.playSoundRandom (snd);
+	}
+	
+	public static void playSoundNormal(string snd){
+		AudioController ac = Camera.main.GetComponent<AudioController> ();
+		ac.playSoundNormal (snd);
+	}
+
 	/// <summary>
 	/// Undoes the last move.
 	/// </summary>
@@ -184,6 +196,7 @@ public class GameController : MonoBehaviour {
 			hasMoved = lc.MoveRelatively (0, 1);
 		if (hasMoved) {
 			movesThisAttempt++;
+			playSound("click");
 			score.UpdateScore();
 		}
 		return hasMoved;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 
-public class AudioController {
+public class AudioController : MonoBehaviour {
 
 	private AudioSource src;
 	private Dictionary<string, AudioClip> audio;
@@ -32,9 +32,8 @@ public class AudioController {
 			return;
 		}
 
-		src.clip = a;
 		src.pitch = pitch;
-		src.Play ();
+		src.PlayOneShot (a, 1.0f);
 	}
 
 	public void playSoundNormal(string snd){
@@ -42,10 +41,12 @@ public class AudioController {
 	}
 	
 	public void playSoundRandom(string snd){
-		playSound (snd, nextGaussian(1.0,1.0));
+		playSound (snd, nextGaussian(1.0,0.3));
 	}
 
-	public AudioController(AudioSource source){
+	void Start(){
+
+		AudioSource source = Camera.main.GetComponent<AudioSource>();
 
 		audio = new Dictionary<string, AudioClip> ();
 
@@ -56,9 +57,11 @@ public class AudioController {
 			string str = getFileName(fi.ToString());
 			if(str.EndsWith(".meta"))continue;
 
-			AudioClip newAudio = Resources.Load("Sounds/"+str) as AudioClip;
+			string filename = removeExtension(str);
 
-			audio.Add(removeExtension(str), newAudio);
+			AudioClip newAudio = (AudioClip)Resources.Load("Sounds/"+filename, typeof(AudioClip));
+
+			audio.Add(filename, newAudio);
 		}
 
 		src = source;
