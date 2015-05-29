@@ -5,7 +5,7 @@ public class GameController : MonoBehaviour {
 
 	public static GameController MainGC;
 
-	public enum Direction{left, right, up, down};
+	public enum Direction{left, right, up, down, random};
 
 	public delegate void ActionOnWin(GameController gc);
 	public ActionOnWin handleWin;

@@ -32,6 +32,18 @@ public class LevelController {
 			}
 		}
 	}
+	public List<Point> getPlayerPositions(){
+		return PLAYER_POS;
+	}
+
+	public bool hasPlayer(){
+		return PLAYER_POS.Count > 0;
+	}
+	
+	public bool hasGoal(){
+		return GOAL_POS.Count > 0;
+	}
+
 	private Move lastMove;
 	
 	public void UndoLastMove(){
@@ -152,8 +164,33 @@ public class LevelController {
 		}
 		AddPlayerPosition(x,y);
 	}
+	
+	
+	public bool MovePlayer(GameController.Direction d){
+		switch (d) {
+		case GameController.Direction.left:
+			return MoveRelatively(-1,0);
+		case GameController.Direction.right:
+			return MoveRelatively(1,0);
+		case GameController.Direction.up:
+			return MoveRelatively(0,-1);
+		case GameController.Direction.down:
+			return MoveRelatively(0,1);
+		}
 
-
+		int i = (int)UnityEngine.Random.Range (0, 4);
+		switch(i){
+			case 0:
+				return MovePlayer(GameController.Direction.left);
+			case 1:
+				return MovePlayer(GameController.Direction.right);
+			case 2:
+				return MovePlayer(GameController.Direction.up);
+			case 3:
+				return MovePlayer(GameController.Direction.down);
+		}
+		return false;
+	}
 
 	/// <summary>
 	/// Attempts to move the player in a relative direction. If the path is obstructed, the player will not move. 	
