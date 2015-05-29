@@ -41,7 +41,7 @@ public class AudioController : MonoBehaviour {
 	}
 	
 	public void playSoundRandom(string snd){
-		playSound (snd, nextGaussian(1.0,0.3));
+		playSound (snd, nextGaussian(1.0,0.2));
 	}
 
 	void Start(){

@@ -23,7 +23,6 @@ public class BlockVisualManager : MonoBehaviour {
 					block.SetType (LevelEditorManager.currentType);
 				}
 			}catch(NullReferenceException e){
-				Debug.LogError (e.StackTrace);
 				return;
 			}
 		}

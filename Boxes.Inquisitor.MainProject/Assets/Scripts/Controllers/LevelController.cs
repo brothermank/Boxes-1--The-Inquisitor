@@ -157,8 +157,9 @@ public class LevelController {
 	/// Adds a new Player object at a specified [x,y] position in the array.	
 	/// </summary>
 	public void AddPlayerAtPosition(int x, int y, bool appendage){
-		if (IsBlock (x, y, Block.BlockType.hazard))
+		if (IsBlock (x, y, Block.BlockType.hazard)) {
 			return;
+		}
 		if (appendage) {
 			SetBlock (x, y, Block.BlockType.appendage);
 		} else {
@@ -230,7 +231,10 @@ public class LevelController {
 		//Then fill in all the new player blocks
 		foreach (Point p in q) {
 			//If the block it is moved to is a hazard, don't do anything.
-			if(IsBlock(p.x+dx,p.y+dy,Block.BlockType.hazard))continue;
+			if(IsBlock(p.x+dx,p.y+dy,Block.BlockType.hazard)){
+				GameController.playSound("burn");
+				continue;
+			}
 
 			//If it's the playerPoint, paint its next point as the player
 			if(playerPoint.Contains(p)){

@@ -4,6 +4,7 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 
 	public static GameController MainGC;
+	private static AudioController ac;
 
 	public enum Direction{left, right, up, down, random};
 
@@ -34,7 +35,7 @@ public class GameController : MonoBehaviour {
 		/*LevelGenerator lg = LevelGenerator.getGenerator ("testLevel.txt");
 		lg.process ();
 		SaveLoadManager.SaveLevel (new Level (lg.getContents (), "newTest123"));*/
-
+		ac = Camera.main.GetComponent<AudioController> ();
 		MainGC = this;
 		score.UpdateScore ();
 		handleWin = Win;
@@ -168,12 +169,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	public static void playSound(string snd){
-		AudioController ac = Camera.main.GetComponent<AudioController> ();
 		ac.playSoundRandom (snd);
 	}
 	
 	public static void playSoundNormal(string snd){
-		AudioController ac = Camera.main.GetComponent<AudioController> ();
 		ac.playSoundNormal (snd);
 	}
 
@@ -204,6 +203,8 @@ public class GameController : MonoBehaviour {
 			playSound("click");
 			score.UpdateScore();
 		}
+		if (!lc.hasPlayer ())
+			RestartLevel ();
 		return hasMoved;
 	}
 
