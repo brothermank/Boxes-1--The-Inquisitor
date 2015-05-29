@@ -30,11 +30,15 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		LoadLevel ();
-		score.UpdateScore ();
-		winPanel.SetActive (false);
-		handleWin = Win;
 		MainGC = this;
+		score.UpdateScore ();
+		handleWin = Win;
+		try{
+			LoadLevel ();
+		}catch(System.UnauthorizedAccessException){}
+		try{
+			winPanel.SetActive (false);
+		}catch(UnassignedReferenceException){}
 	}
 
 	/// <summary>

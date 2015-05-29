@@ -51,7 +51,6 @@ public class CameraController : MonoBehaviour {
 			float tilesY = (float) GameController.MainGC.OriginalLevelData.GetLength(1);
 			Camera.main.transform.position = new Vector3 (tilesX/2f - 0.5f, tilesY/2f - 0.5f, -1.5f);
 			CameraController.ResizeMainCamTo ((int)tilesX, (int)tilesY);
-			Camera.main.orthographicSize = 5;
 		}
 	}
 
