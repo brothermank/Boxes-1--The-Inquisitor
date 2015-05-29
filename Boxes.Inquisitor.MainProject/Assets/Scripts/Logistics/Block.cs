@@ -12,12 +12,12 @@ public class Block {
 	public bool isAlsoGoal = false;
 
 	public Block(BlockType type){
-		this.type = type;
+		SetType (type);
 	}
 	public Block(Block source){
 		visualiser = source.visualiser;
 		isAlsoGoal = source.isAlsoGoal;
-		type = source.type;
+		SetType (source.type);
 	}
 
 	/// <summary>
@@ -64,11 +64,14 @@ public class Block {
 			manager.block = this;
 			manager.posx = x;
 			manager.posy = y;
-
+			
 			visualiser = renderer;
+			Sprite sprite = GetSprite (type);
+			visualiser.sprite = sprite;
+		
+			visualiser.gameObject.GetComponent<RandomlyTexturedObjectController>().Initialize();
+			visualiser.gameObject.GetComponent<RandomlyTexturedObjectController> ().SetColor (GenerateTexture.GetPallete (type));
 		}
-		Sprite sprite = GetSprite (type);
-		visualiser.sprite = sprite;
 	}
 
 	/// <summary>
@@ -102,7 +105,7 @@ public class Block {
 		default:
 			return null;
 		}
-		Texture2D texture =  Resources.Load (basePath + objectName) as Texture2D;
+		Texture2D texture =  GenerateTexture.CreateRandomTexture(GenerateTexture.GetAvailableColors(GenerateTexture.GetPallete(type)), 10, 10);
 		return Sprite.Create (texture, new Rect (0, 0, texture.width, texture.height), new Vector2 (0.5f, 0.5f), Mathf.Max(new int[2]{texture.height, texture.width}));
 	}
 	
@@ -111,16 +114,19 @@ public class Block {
 	/// Sets the type of the block, and updates it's display (if any) to reflect the new type
 	/// </summary>
 	public void SetType(BlockType newType){
-		if (isAlsoGoal && newType == BlockType.background) {
-			type = BlockType.goal;
-			if(visualiser != null){
-				visualiser.sprite = GetSprite(BlockType.goal);
+		if (newType != type) {
+			if (isAlsoGoal && newType == BlockType.background) {
+				type = BlockType.goal;
+				if (visualiser != null) {
+					visualiser.sprite = GetSprite (BlockType.goal);
+				}
+				return;
 			}
-			return;
-		}
-		type = newType;
-		if(visualiser != null){
-			visualiser.sprite = GetSprite(type);
+			type = newType;
+			if (visualiser != null) {
+				visualiser.sprite = GetSprite (type);
+				visualiser.gameObject.GetComponent<RandomlyTexturedObjectController> ().SetColor (GenerateTexture.GetPallete (type));
+			}
 		}
 	}
 	/// <summary>
