@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
 
 	private LevelController lc;
 
+	private AudioController audio;
 	private int tilesX, tilesY;
 	public int movesThisAttempt = 0;
 	public string LevelString = "";
@@ -35,6 +36,7 @@ public class GameController : MonoBehaviour {
 		winPanel.SetActive (false);
 		handleWin = Win;
 		MainGC = this;
+		audio = new AudioController (Camera.main.GetComponent<AudioSource> ());
 	}
 
 	/// <summary>
@@ -182,6 +184,7 @@ public class GameController : MonoBehaviour {
 			hasMoved = lc.MoveRelatively (0, 1);
 		if (hasMoved) {
 			movesThisAttempt++;
+			audio.playSoundRandom("pop");
 			score.UpdateScore();
 		}
 		return hasMoved;

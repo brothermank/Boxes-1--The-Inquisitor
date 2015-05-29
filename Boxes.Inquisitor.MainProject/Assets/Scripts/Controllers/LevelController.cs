@@ -9,7 +9,6 @@ public class LevelController {
 
 	private Block[,] LEVEL, INITIAL_LEVEL;
 	private List<Point> PLAYER_POS, GOAL_POS, INITIAL_PLAYER_POS;
-
 	
 	private struct Move {
 		public List<Point> PLAYER_POS_LAST;
@@ -68,6 +67,8 @@ public class LevelController {
 		FindPlayerPositions ();
 		FindGoalPositions ();
 		Debug.Log (PLAYER_POS.Count);
+
+
 
 		INITIAL_PLAYER_POS = new List<Point> (PLAYER_POS);
 		Array.Copy (LEVEL, INITIAL_LEVEL, tilesX*tilesY);

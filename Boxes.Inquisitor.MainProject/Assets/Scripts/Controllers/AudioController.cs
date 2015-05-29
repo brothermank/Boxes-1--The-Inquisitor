@@ -26,15 +26,20 @@ public class AudioController {
 	}
 
 	private void playSound(string snd, float pitch){
+		Debug.Log ("1");
 		AudioClip a = null;
+		Debug.Log ("2");
 		if (!audio.TryGetValue (snd, out a)) {
 			Debug.LogError("No such sound clip '"+snd+"'.");
 			return;
 		}
+		if (a == null)
+			Debug.Log ("wtf");
 
-		src.clip = a;
 		src.pitch = pitch;
-		src.Play ();
+		Debug.Log ("5");
+		src.PlayOneShot (a, 1.0f);
+		Debug.Log ("6");
 	}
 
 	public void playSoundNormal(string snd){
@@ -42,7 +47,7 @@ public class AudioController {
 	}
 	
 	public void playSoundRandom(string snd){
-		playSound (snd, nextGaussian(1.0,1.0));
+		playSound (snd, nextGaussian(1.0,0.5));
 	}
 
 	public AudioController(AudioSource source){
@@ -56,9 +61,11 @@ public class AudioController {
 			string str = getFileName(fi.ToString());
 			if(str.EndsWith(".meta"))continue;
 
-			AudioClip newAudio = Resources.Load("Sounds/"+str) as AudioClip;
+			string filename = removeExtension(str);
 
-			audio.Add(removeExtension(str), newAudio);
+			AudioClip newAudio = (AudioClip)Resources.Load("Sounds/"+filename, typeof(AudioClip));
+
+			audio.Add(filename, newAudio);
 		}
 
 		src = source;
